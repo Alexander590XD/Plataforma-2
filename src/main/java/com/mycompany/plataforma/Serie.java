@@ -18,151 +18,133 @@ public class Serie extends Video {
     private String emision;
     private String pOrigen;
     private String iAudio;
-    
-    public Serie(){
+
+    public Serie() {
         super();
         Scanner scanner = new Scanner(System.in);
-        
+
         System.out.print("Temporadas: ");
         this.temporadas = scanner.nextInt();
         scanner.nextLine();
         
-        System.out.print("Numero de capitulo: ");
+        System.out.print("Número de capítulos: ");
         this.capitulos = scanner.nextInt();
         scanner.nextLine();
         
-        System.out.println("Duracion del capitulo");
+        System.out.print("Duración del capítulo: ");
         this.dCap = scanner.nextLine();
         
-        System.out.print("Estado de Emision: ");
+        System.out.print("Estado de emisión: ");
         this.emision = scanner.nextLine();
         
-        System.out.print("Plateforma de Origen: ");
+        System.out.print("Plataforma de origen: ");
         this.pOrigen = scanner.nextLine();
         
-        System.out.print("Idioma Original: ");
-        this.iAudio =scanner.nextLine();
+        System.out.print("Idioma original: ");
+        this.iAudio = scanner.nextLine();
     }
     
-    public Serie(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechalanzamiento,String director,
-            List<String> actores,String paisO,List<String> subtitulos,int temporadas,int capitulos,String dCap,String emision,String pOrigen,String iAudio){
-        super(nombre,idElemento,titulo,duracion,calidad,fechalanzamiento,director,actores,paisO,subtitulos);
-        this.temporadas=temporadas;
-        this.capitulos=capitulos;
-        this.dCap=dCap;
-        this.emision=emision;
-        this.pOrigen=pOrigen;
-        this.iAudio=iAudio;
+    public Serie(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechalanzamiento,
+                 String director, List<String> actores, String paisO, List<String> subtitulos,
+                 int temporadas, int capitulos, String dCap, String emision, String pOrigen, String iAudio) {
+        super(nombre, idElemento, titulo, duracion, calidad, fechalanzamiento, director, actores, paisO, subtitulos);
+        this.temporadas = temporadas;
+        this.capitulos = capitulos;
+        this.dCap = dCap;
+        this.emision = emision;
+        this.pOrigen = pOrigen;
+        this.iAudio = iAudio;
     }
 
-    /**
-     * @return the temporadas
-     */
+    // Getters and Setters
     public int getTemporadas() {
         return temporadas;
     }
 
-    /**
-     * @param temporadas the temporadas to set
-     */
     public void setTemporadas(int temporadas) {
         this.temporadas = temporadas;
     }
 
-    /**
-     * @return the emision
-     */
-    public String getEmision() {
-        return emision;
-    }
-
-    /**
-     * @param emision the emision to set
-     */
-    public void setEmision(String emision) {
-        this.emision = emision;
-    }
-
-    /**
-     * @return the pOrigen
-     */
-    public String getpOrigen() {
-        return pOrigen;
-    }
-
-    /**
-     * @param pOrigen the pOrigen to set
-     */
-    public void setpOrigen(String pOrigen) {
-        this.pOrigen = pOrigen;
-    }
-
-    /**
-     * @return the iAudio
-     */
-    public String getiAudio() {
-        return iAudio;
-    }
-
-    /**
-     * @param iAudio the iAudio to set
-     */
-    public void setiAudio(String iAudio) {
-        this.iAudio = iAudio;
-    }
-    
-     /**
-     * @return the capitulos
-     */
     public int getCapitulos() {
         return capitulos;
     }
 
-    /**
-     * @param capitulos the capitulos to set
-     */
     public void setCapitulos(int capitulos) {
         this.capitulos = capitulos;
     }
-    
-      /**
-     * @return the dCap
-     */
+
     public String getdCap() {
         return dCap;
     }
 
-    /**
-     * @param dCap the dCap to set
-     */
     public void setdCap(String dCap) {
         this.dCap = dCap;
     }
+
+    public String getEmision() {
+        return emision;
+    }
+
+    public void setEmision(String emision) {
+        this.emision = emision;
+    }
+
+    public String getpOrigen() {
+        return pOrigen;
+    }
+
+    public void setpOrigen(String pOrigen) {
+        this.pOrigen = pOrigen;
+    }
+
+    public String getiAudio() {
+        return iAudio;
+    }
+
+    public void setiAudio(String iAudio) {
+        this.iAudio = iAudio;
+    }
+
     public void mostrarSerie() {
-        super.mostrarVideo();
+        super.mostrarInfo(); // Usa el método de Video para mostrar la información básica
         System.out.println("Temporadas: " + temporadas);
-        System.out.println("Capitulo: " + capitulos);
-        System.out.println("Estado de Emisión: " + emision);
-        System.out.println("Plataforma de Origen: " + pOrigen);
-        System.out.println("Idioma Original: " + iAudio);
+        System.out.println("Número de capítulos: " + capitulos);
+        System.out.println("Duración del capítulo: " + dCap);
+        System.out.println("Estado de emisión: " + emision);
+        System.out.println("Plataforma de origen: " + pOrigen);
+        System.out.println("Idioma original: " + iAudio);
     }
     
     public void agregarTemporada() {
         temporadas++;
     }
+
     public void agregarCapitulo() {
-        setCapitulos(getCapitulos() + 1);
+        capitulos++;
     }
     
-    public void cambiarEstadoEmision(String nuevoEstado) {
-        this.emision = nuevoEstado;
-    }
-   
-    public void cambiarDuracion(int nuevaDuracion){
-        super.setDuracion(nuevaDuracion);
+    public void modificarInformacion() {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Ingrese nuevo número de temporadas (actual: " + temporadas + "): ");
+        this.temporadas = scanner.nextInt();
+        scanner.nextLine(); // Limpiar buffer
+        
+        System.out.print("Ingrese nuevo número de capítulos (actual: " + capitulos + "): ");
+        this.capitulos = scanner.nextInt();
+        scanner.nextLine(); // Limpiar buffer
+        
+        System.out.print("Ingrese nueva duración del capítulo (actual: " + dCap + "): ");
+        this.dCap = scanner.nextLine();
+        
+        System.out.print("Ingrese nuevo estado de emisión (actual: " + emision + "): ");
+        this.emision = scanner.nextLine();
+        
+        System.out.print("Ingrese nueva plataforma de origen (actual: " + pOrigen + "): ");
+        this.pOrigen = scanner.nextLine();
+        
+        System.out.print("Ingrese nuevo idioma original (actual: " + iAudio + "): ");
+        this.iAudio = scanner.nextLine();
     }
     
-    public void cambiarDuracionCap(int nuevaDuracionCp){
-        super.setDuracion(nuevaDuracionCp);
-    }
 }

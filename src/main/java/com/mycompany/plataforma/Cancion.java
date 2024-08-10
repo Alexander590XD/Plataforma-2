@@ -28,53 +28,55 @@ public class Cancion extends Audio {
         this.esExplicita = scanner.nextBoolean();
         scanner.nextLine();
     }
+
     public Cancion(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechalanzamiento,
-            String artista, String album, String genero, String compositor, String discografica, String letra,
-            int numeroTrack, boolean esExplicita) {
-        super(nombre, idElemento, titulo, duracion, calidad, fechalanzamiento, artista, album, genero, compositor,
-                discografica, letra);
+                   String artista, String album, String genero, String compositor, String discografica, String letra,
+                   int numeroTrack, boolean esExplicita) {
+        super(nombre, idElemento, titulo, duracion, calidad, fechalanzamiento, artista, album, genero, compositor, discografica, letra);
         this.numeroTrack = numeroTrack;
         this.esExplicita = esExplicita;
     }
     
-    /**
-     * @return the numeroTrack
-     */
+    // Getters and Setters
     public int getNumeroTrack() {
         return numeroTrack;
     }
 
-    /**
-     * @param numeroTrack the numeroTrack to set
-     */
     public void setNumeroTrack(int numeroTrack) {
         this.numeroTrack = numeroTrack;
     }
 
-    /**
-     * @return the esExplicita
-     */
     public boolean isEsExplicita() {
         return esExplicita;
     }
 
-    /**
-     * @param esExplicita the esExplicita to set
-     */
     public void setEsExplicita(boolean esExplicita) {
         this.esExplicita = esExplicita;
     }
     
     public void reproducir() {
-        System.out.println("Reproduciendo " + super.getTitulo());
+        System.out.println("Reproduciendo " + getTitulo());
     }
 
     public void agregarAPlaylist(String playlist) {
-        System.out.println(super.getTitulo() + " agregada a la playlist: " + playlist);
+        System.out.println(getTitulo() + " agregada a la playlist: " + playlist);
     }
+    
     public void mostrarInfoCancion() {
-        super.mostrarInfo(); // Llama al método mostrarInfo() de la clase padre (Audio)
+        super.mostrarInfo(); // Llama al método mostrarInfo() de la clase Audio
         System.out.println("Número de Track: " + numeroTrack);
         System.out.println("Es explícita: " + (esExplicita ? "Sí" : "No"));
+    }
+    
+    public void modificarInformacion() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese nuevo número de track (actual: " + numeroTrack + "): ");
+        this.numeroTrack = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("¿Es explícita? (true/false, actual: " + (esExplicita ? "Sí" : "No") + "): ");
+        this.esExplicita = scanner.nextBoolean();
+        scanner.nextLine();
     }
 }

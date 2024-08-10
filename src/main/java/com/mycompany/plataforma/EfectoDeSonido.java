@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class EfectoDeSonido extends Audio {
 
-    private String tipo;
+   private String tipo;
     private String descripcion;
 
     public EfectoDeSonido() {
@@ -28,12 +28,14 @@ public class EfectoDeSonido extends Audio {
     }
 
     public EfectoDeSonido(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechalanzamiento,
-            String artista, String album, String genero, String compositor, String discografica, String letra, String tipo, String descripcion) {
-        super(nombre, idElemento, titulo, duracion, calidad, fechalanzamiento, artista, album, genero, compositor,discografica, letra);
+                          String artista, String album, String genero, String compositor, String discografica, String letra,
+                          String tipo, String descripcion) {
+        super(nombre, idElemento, titulo, duracion, calidad, fechalanzamiento, artista, album, genero, compositor, discografica, letra);
         this.tipo = tipo;
         this.descripcion = descripcion;
     }
 
+    // Getters and Setters
     public String getTipo() {
         return tipo;
     }
@@ -51,12 +53,23 @@ public class EfectoDeSonido extends Audio {
     }
 
     public void reproducirEfecto() {
-        System.out.println("Reproduciendo efecto de sonido: " + super.getTitulo());
+        System.out.println("Reproduciendo efecto de sonido: " + getTitulo());
     }
 
     public void mostrarInfoEfecto() {
-        super.mostrarInfo();
+        super.mostrarInfo(); // Llama al método mostrarInfo() de la clase Audio
         System.out.println("Tipo de efecto: " + tipo);
         System.out.println("Descripción: " + descripcion);
     }
+    
+    public void modificarInformacion() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el nuevo tipo de efecto (actual: " + tipo + "): ");
+        this.tipo = scanner.nextLine();
+
+        System.out.print("Ingrese la nueva descripción (actual: " + descripcion + "): ");
+        this.descripcion = scanner.nextLine();
+    }
+    
 }

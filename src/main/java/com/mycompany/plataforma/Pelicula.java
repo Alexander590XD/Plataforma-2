@@ -11,17 +11,16 @@ import java.util.Scanner;
  * @author pato4
  */
 public class Pelicula extends Video{
-    
     private String genero;
     private String sinopsis;
     private String estudio;
     private String clasificacio;
-   
-    public Pelicula(){
+
+    public Pelicula() {
         super();
         Scanner scanner = new Scanner(System.in);
         
-        System.out.print("Genero: ");
+        System.out.print("Género: ");
         this.genero = scanner.nextLine();
         
         System.out.print("Sinopsis: ");
@@ -29,80 +28,56 @@ public class Pelicula extends Video{
         
         System.out.print("Estudio: ");
         this.estudio = scanner.nextLine();
-
-        System.out.print("Clasificación de Edad: ");
-        this.clasificacio =scanner.nextLine();
         
-        this.titulo = super.getTitulo();
+        System.out.print("Clasificación de Edad: ");
+        this.clasificacio = scanner.nextLine();
     }
     
-    public Pelicula(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechalanzamiento,String director,
-            List<String> actores,String paisO,List<String> subtitulos,String genero,String sinopsis,String estudio,String clasificacio){
-        super(nombre,idElemento,titulo,duracion,calidad,fechalanzamiento,director,actores,paisO,subtitulos);
-        this.genero=genero;
-        this.sinopsis=sinopsis;
-        this.estudio=estudio;
-        this.clasificacio=clasificacio;
+    public Pelicula(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechalanzamiento,
+                    String director, List<String> actores, String paisO, List<String> subtitulos,
+                    String genero, String sinopsis, String estudio, String clasificacio) {
+        super(nombre, idElemento, titulo, duracion, calidad, fechalanzamiento, director, actores, paisO, subtitulos);
+        this.genero = genero;
+        this.sinopsis = sinopsis;
+        this.estudio = estudio;
+        this.clasificacio = clasificacio;
     }
 
-    /**
-     * @return the genero
-     */
+    // Getters and Setters
     public String getGenero() {
         return genero;
     }
 
-    /**
-     * @param genero the genero to set
-     */
     public void setGenero(String genero) {
         this.genero = genero;
     }
 
-    /**
-     * @return the sinopsis
-     */
     public String getSinopsis() {
         return sinopsis;
     }
 
-    /**
-     * @param sinopsis the sinopsis to set
-     */
     public void setSinopsis(String sinopsis) {
         this.sinopsis = sinopsis;
     }
 
-    /**
-     * @return the estudio
-     */
     public String getEstudio() {
         return estudio;
     }
 
-    /**
-     * @param estudio the estudio to set
-     */
     public void setEstudio(String estudio) {
         this.estudio = estudio;
     }
 
-    /**
-     * @return the clasificacio
-     */
     public String getClasificacio() {
         return clasificacio;
     }
 
-    /**
-     * @param clasificacio the clasificacio to set
-     */
     public void setClasificacio(String clasificacio) {
         this.clasificacio = clasificacio;
     }
-    
+
     public void mostrarPelicula() {
-        super.mostrarVideo(); 
+        super.mostrarInfo(); // Usa el método de Video para mostrar la información básica
         System.out.println("Género: " + genero);
         System.out.println("Sinopsis: " + sinopsis);
         System.out.println("Estudio: " + estudio);
@@ -110,17 +85,34 @@ public class Pelicula extends Video{
     }
 
     public void recomendarPelicula(String amigo) {
-        System.out.println("Recomendando la película " + super.getTitulo() + " a " + amigo);
+        System.out.println("Recomendando la película " + getTitulo() + " a " + amigo);
     }
-    
+
     public boolean esAptaParaNinos() {
         return clasificacio.equals("PG") || clasificacio.equals("G");
     }
 
     public String obtenerDescripcionBreve() {
-        return(titulo + " - " + genero + " " + clasificacio + " ");
+        return getTitulo() + " - " + genero + " " + clasificacio;
     }
+
     public void agregarComentario(String comentario) {
-        System.out.println("Comentario agregado a " + titulo + ": " + comentario);
+        System.out.println("Comentario agregado a " + getTitulo() + ": " + comentario);
+    }
+    
+     public void modificarInformacion() {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Ingrese nuevo género (actual: " + genero + "): ");
+        this.genero = scanner.nextLine();
+        
+        System.out.print("Ingrese nueva sinopsis (actual: " + sinopsis + "): ");
+        this.sinopsis = scanner.nextLine();
+        
+        System.out.print("Ingrese nuevo estudio (actual: " + estudio + "): ");
+        this.estudio = scanner.nextLine();
+        
+        System.out.print("Ingrese nueva clasificación de edad (actual: " + clasificacio + "): ");
+        this.clasificacio = scanner.nextLine();
     }
 }

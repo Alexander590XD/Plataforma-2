@@ -11,17 +11,14 @@ import java.util.Scanner;
  */
 public abstract class Plataforma {
 
-    protected String nombre;
-    
-    public Plataforma(){
-        Scanner scanner = new Scanner(System.in);
+     protected String nombre;
 
-        System.out.println("Nombre de la Plataforma: ");
-        this.nombre = scanner.nextLine();
+    public Plataforma() {
+        // Constructor vacío
     }
-    
-    public Plataforma(String nombre){
-         this.nombre = nombre;
+
+    public Plataforma(String nombre) {
+        this.nombre = nombre;
     }
 
     /**
@@ -37,8 +34,10 @@ public abstract class Plataforma {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
-    public void mostrarPlata(){
+
+    public abstract void mostrarInfo();
+   
+    public void mostrarPlataforma() {
         System.out.println("Nombre de la Plataforma: " + nombre);
     }
 }
