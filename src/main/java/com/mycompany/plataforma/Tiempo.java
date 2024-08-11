@@ -4,6 +4,7 @@
  */
 package com.mycompany.plataforma;
 
+import java.util.Calendar;
 import java.util.Scanner;
 
 /**
@@ -11,69 +12,16 @@ import java.util.Scanner;
  * @author pato4
  */
 public class Tiempo {
-        private int hora;
-    private int minutos;
-    private int segundos;
-
-    public Tiempo() {
-    }
-
-    public Tiempo(int hora, int minutos, int segundos) {
-        this.hora = hora;
-        this.minutos = minutos;
-        this.segundos = segundos;
-    }
-
-    public int getHora() {
-        return hora;
-    }
-
-    public void setHora(int hora) {
-        this.hora = hora;
-    }
-
-    public int getMinutos() {
-        return minutos;
-    }
-
-    public void setMinutos(int minutos) {
-        this.minutos = minutos;
-    }
-
-    public int getSegundos() {
-        return segundos;
-    }
-
-    public void setSegundos(int segundos) {
-        this.segundos = segundos;
-    }
-
-    public void capturarHora() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Ingrese la hora: ");
-        this.hora = scanner.nextInt();
-
-        System.out.print("Ingrese los minutos: ");
-        this.minutos = scanner.nextInt();
-
-        System.out.print("Ingrese los segundos: ");
-        this.segundos = scanner.nextInt();
-    }
-
-    public void establecerHora(int hora, int minutos, int segundos) {
-        this.hora = hora;
-        this.minutos = minutos;
-        this.segundos = segundos;
-    }
-
-    public void imprimeEstandar() {
-        System.out.printf("%02d:%02d:%02d %s\n",
-                ((hora == 0 || hora == 12) ? 12 : hora % 12),
-                minutos, segundos, (hora < 12 ? "AM" : "PM"));
+     private int hora, minuto, segundo;
+    
+     public void capturarHora() {
+        Calendar now = Calendar.getInstance();
+        this.hora = now.get(Calendar.HOUR_OF_DAY);
+        this.minuto = now.get(Calendar.MINUTE);
+        this.segundo = now.get(Calendar.SECOND);
     }
 
     public void imprimeUniversal() {
-        System.out.printf("%02d:%02d:%02d\n", hora, minutos, segundos);
+        System.out.printf("%02d:%02d:%02d\n", hora, minuto, segundo);
     }
 }

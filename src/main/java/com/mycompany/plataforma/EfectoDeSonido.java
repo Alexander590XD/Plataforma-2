@@ -52,10 +52,6 @@ public class EfectoDeSonido extends Audio {
         this.descripcion = descripcion;
     }
 
-    public void reproducirEfecto() {
-        System.out.println("Reproduciendo efecto de sonido: " + getTitulo());
-    }
-
     public void mostrarInfoEfecto() {
         super.mostrarInfo(); // Llama al método mostrarInfo() de la clase Audio
         System.out.println("Tipo de efecto: " + tipo);

@@ -84,23 +84,7 @@ public class Pelicula extends Video{
         System.out.println("Clasificación de Edad: " + clasificacio);
     }
 
-    public void recomendarPelicula(String amigo) {
-        System.out.println("Recomendando la película " + getTitulo() + " a " + amigo);
-    }
-
-    public boolean esAptaParaNinos() {
-        return clasificacio.equals("PG") || clasificacio.equals("G");
-    }
-
-    public String obtenerDescripcionBreve() {
-        return getTitulo() + " - " + genero + " " + clasificacio;
-    }
-
-    public void agregarComentario(String comentario) {
-        System.out.println("Comentario agregado a " + getTitulo() + ": " + comentario);
-    }
-    
-     public void modificarInformacion() {
+    public void modificarInformacion() {
         Scanner scanner = new Scanner(System.in);
         
         System.out.print("Ingrese nuevo género (actual: " + genero + "): ");

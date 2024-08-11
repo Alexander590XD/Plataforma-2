@@ -1,9 +1,17 @@
-C:\Users\pato4\Documents\UPP\2do cuatrimestre\POO\JavaNet\Plataforma\src\main\java\com\mycompany\plataforma\Pprincipal.java
-C:\Users\pato4\Documents\UPP\2do cuatrimestre\POO\JavaNet\Plataforma\src\main\java\com\mycompany\plataforma\Audio.java
-C:\Users\pato4\Documents\UPP\2do cuatrimestre\POO\JavaNet\Plataforma\src\main\java\com\mycompany\plataforma\Cancion.java
-C:\Users\pato4\Documents\UPP\2do cuatrimestre\POO\JavaNet\Plataforma\src\main\java\com\mycompany\plataforma\Video.java
-C:\Users\pato4\Documents\UPP\2do cuatrimestre\POO\JavaNet\Plataforma\src\main\java\com\mycompany\plataforma\ElementoMultimedia.java
-C:\Users\pato4\Documents\UPP\2do cuatrimestre\POO\JavaNet\Plataforma\src\main\java\com\mycompany\plataforma\EfectoDeSonido.java
-C:\Users\pato4\Documents\UPP\2do cuatrimestre\POO\JavaNet\Plataforma\src\main\java\com\mycompany\plataforma\Plataforma.java
-C:\Users\pato4\Documents\UPP\2do cuatrimestre\POO\JavaNet\Plataforma\src\main\java\com\mycompany\plataforma\Serie.java
-C:\Users\pato4\Documents\UPP\2do cuatrimestre\POO\JavaNet\Plataforma\src\main\java\com\mycompany\plataforma\Pelicula.java
+C:\Users\pato4\Documents\NetBeansProjects\Plataforma\src\main\java\com\mycompany\plataforma\ListaReproduccion.java
+C:\Users\pato4\Documents\NetBeansProjects\Plataforma\src\main\java\com\mycompany\plataforma\GestionPlataforma.java
+C:\Users\pato4\Documents\NetBeansProjects\Plataforma\src\main\java\com\mycompany\plataforma\Recomendacion.java
+C:\Users\pato4\Documents\NetBeansProjects\Plataforma\src\main\java\com\mycompany\plataforma\Serie.java
+C:\Users\pato4\Documents\NetBeansProjects\Plataforma\src\main\java\com\mycompany\plataforma\Video.java
+C:\Users\pato4\Documents\NetBeansProjects\Plataforma\src\main\java\com\mycompany\plataforma\Pelicula.java
+C:\Users\pato4\Documents\NetBeansProjects\Plataforma\src\main\java\com\mycompany\plataforma\EfectoDeSonido.java
+C:\Users\pato4\Documents\NetBeansProjects\Plataforma\src\main\java\com\mycompany\plataforma\GestionUsuarios.java
+C:\Users\pato4\Documents\NetBeansProjects\Plataforma\src\main\java\com\mycompany\plataforma\Cancion.java
+C:\Users\pato4\Documents\NetBeansProjects\Plataforma\src\main\java\com\mycompany\plataforma\ElementoMultimedia.java
+C:\Users\pato4\Documents\NetBeansProjects\Plataforma\src\main\java\com\mycompany\plataforma\Plataforma.java
+C:\Users\pato4\Documents\NetBeansProjects\Plataforma\src\main\java\com\mycompany\plataforma\Usuario.java
+C:\Users\pato4\Documents\NetBeansProjects\Plataforma\src\main\java\com\mycompany\plataforma\Audio.java
+C:\Users\pato4\Documents\NetBeansProjects\Plataforma\src\main\java\com\mycompany\plataforma\Tiempo.java
+C:\Users\pato4\Documents\NetBeansProjects\Plataforma\src\main\java\com\mycompany\plataforma\IUsuario.java
+C:\Users\pato4\Documents\NetBeansProjects\Plataforma\src\main\java\com\mycompany\plataforma\Pprincipal.java
+C:\Users\pato4\Documents\NetBeansProjects\Plataforma\src\main\java\com\mycompany\plataforma\Pago.java

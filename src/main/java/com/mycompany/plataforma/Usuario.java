@@ -4,6 +4,8 @@
  */
 package com.mycompany.plataforma;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -12,10 +14,13 @@ import java.util.Scanner;
  */
 
 public class Usuario implements IUsuario {
-   private String nombre;
+    private String nombre;
     private String contrasena;
-    private Tiempo tiempoRegistro;
-    private Pago pago; // Agregación con la clase Pago
+    Tiempo tiempoRegistro;
+    Pago pago;
+    private List<ListaReproduccion> listasReproduccion;
+    private List<String> favoritos;
+    private Recomendacion recomendacion; // Recomendaciones personalizadas
 
     // Constructor
     public Usuario(String nombre, String contrasena, Tiempo tiempoRegistro, Pago pago) {
@@ -23,35 +28,30 @@ public class Usuario implements IUsuario {
         this.contrasena = contrasena;
         this.tiempoRegistro = tiempoRegistro;
         this.pago = pago;
+        this.listasReproduccion = new ArrayList<>();
+        this.favoritos = new ArrayList<>();
+        this.recomendacion = new Recomendacion(); // Inicializar recomendaciones
     }
 
-    @Override
-    public String getNombre() {
-        return nombre;
+    // Métodos adicionales
+
+    public void verContenido(String contenido) {
+        // Aumentar el historial de visualización cuando se ve contenido
+        recomendacion.agregarVisualizacion(contenido);
     }
 
-    @Override
-    public String getContrasena() {
-        return contrasena;
+    public void mostrarRecomendaciones() {
+        recomendacion.mostrarRecomendaciones();
     }
 
     @Override
     public void mostrarInformacion() {
-        System.out.println("Nombre: " + nombre);
-        System.out.print("Hora de registro: ");
-        tiempoRegistro.imprimeUniversal();
-        if (pago != null) {
-            System.out.println("Información de Pago:");
-            pago.mostrarInformacion();
-        } else {
-            System.out.println("No se ha registrado ninguna información de pago.");
-        }
+        mostrarRecomendaciones();
     }
-
+    
     public boolean iniciarSesion(String contrasena) {
         return this.contrasena.equals(contrasena);
     }
-
     public static Usuario registrarUsuario() {
         Scanner scanner = new Scanner(System.in);
         
@@ -70,6 +70,32 @@ public class Usuario implements IUsuario {
         Pago pago = Pago.capturarPago();
         
         return new Usuario(nombre, contrasena, tiempo, pago);
+    }
+
+    @Override
+    public String getNombre() {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
+
+    @Override
+    public String getContrasena() {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
+
+    void agregarContenidoALista(String nombreListaAgregar, String contenidoAgregar) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    void crearListaReproduccion(String nombreLista) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    void agregarFavorito(String contenidoFavorito) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    void eliminarFavorito(String contenidoEliminar) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 

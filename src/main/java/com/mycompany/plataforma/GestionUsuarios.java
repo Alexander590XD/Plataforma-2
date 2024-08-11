@@ -4,167 +4,134 @@
  */
 package com.mycompany.plataforma;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 import java.util.Scanner;
+import java.util.Stack;
 
 /**
  *
  * @author pato4
  */
 public class GestionUsuarios {
-    /*private Map<Integer, Usuario> usuarios;
-    private final String ADMIN_PASSWORD = "admin123"; 
+    private Map<Integer, Usuario> usuarios;
+    private List<Usuario> listaUsuarios;
+    private Stack<Usuario> pilaUsuarios;
+    private Queue<Usuario> colaUsuarios;
+    private int nextId;
 
     public GestionUsuarios() {
         usuarios = new HashMap<>();
-    }
-
-    public void iniciar() {
-        Scanner scanner = new Scanner(System.in);
-        int opcion;
-        do {
-            mostrarMenuPrincipal(scanner);
-        } while (true); 
+        /*listaUsuarios = new LinkedList<>();*/
+        pilaUsuarios = new Stack<>();
+        colaUsuarios = new LinkedList<>();
+        nextId = 1;
     }
 
     public void mostrarMenuPrincipal(Scanner scanner) {
         int opcion;
         do {
             System.out.println("\n----- Menú Principal -----");
-            System.out.println("1. Mostrar Información en Lista");
-            System.out.println("2. Mostrar Información en Cola");
-            System.out.println("3. Mostrar Información en Pila");
-            System.out.println("4. Eliminar Información");
-            System.out.println("5. Salir");
+            System.out.println("1. Modificar Usuario");
+            System.out.println("2. Eliminar Usuario");
+            System.out.println("3. Mostrar Usuarios");
+            System.out.println("4. Salir");
             System.out.print("Ingrese una opción: ");
             opcion = scanner.nextInt();
             scanner.nextLine();
             switch (opcion) {
                 case 1:
-                    mostrarInformacionLista();
+                    modificarUsuario(scanner);
                     break;
                 case 2:
-                    mostrarInformacionCola();
+                    eliminarUsuario(scanner);
                     break;
                 case 3:
-                    mostrarInformacionPila();
+                    mostrarUsuarios();
                     break;
                 case 4:
-                    if (validarContraseña(scanner)) {
-                        eliminarInformacion(scanner);
-                    }
-                    break;
-                case 5:
                     System.out.println("Saliendo del programa...");
-                    return; 
+                    return;
                 default:
                     System.out.println("Opción inválida. Por favor, ingrese una opción válida.");
             }
-        } while (opcion != 5);
+        } while (opcion != 4);
     }
 
-    private boolean validarContraseña(Scanner scanner) {
-        System.out.print("Ingrese la contraseña: ");
-        String contrasena = scanner.nextLine();
-        if (ADMIN_PASSWORD.equals(contrasena)) {
-            return true;
-        } else {
-            System.out.println("Contraseña incorrecta. No tiene acceso a esta funcionalidad.");
-            return false;
+    public void agregarUsuario(Usuario usuario) {
+        usuarios.put(nextId, usuario);
+        listaUsuarios.add(usuario);
+        pilaUsuarios.push(usuario);
+        colaUsuarios.offer(usuario);
+        System.out.println("Usuario registrado con éxito. ID: " + nextId);
+        nextId++;
+    }
+
+    private void modificarUsuario(Scanner scanner) {
+        System.out.print("Ingrese el nombre del usuario a modificar: ");
+        String nombre = scanner.nextLine();
+        Usuario usuario = buscarUsuarioPorNombre(nombre);
+        if (usuario == null) {
+            System.out.println("No se encontró un usuario con el nombre " + nombre + ".");
+            return;
         }
-    }
-
-    private void mostrarInformacionLista() {
-        System.out.println("\n----- Información de Usuarios en Lista -----");
-        List<Usuario> listaUsuarios = new ArrayList<>(usuarios.values());
-        for (Usuario usuario : listaUsuarios) {
-            mostrarUsuario(usuario);
-        }
-    }
-
-    private void mostrarInformacionCola() {
-        System.out.println("\n----- Información de Usuarios en Cola -----");
-        Queue<Usuario> colaUsuarios = new LinkedList<>(usuarios.values());
-        while (!colaUsuarios.isEmpty()) {
-            Usuario usuario = colaUsuarios.poll();
-            mostrarUsuario(usuario);
-        }
-    }
-
-    private void mostrarInformacionPila() {
-        System.out.println("\n----- Información de Usuarios en Pila -----");
-        Stack<Usuario> pilaUsuarios = new Stack<>();
-        pilaUsuarios.addAll(usuarios.values());
-        while (!pilaUsuarios.isEmpty()) {
-            Usuario usuario = pilaUsuarios.pop();
-            mostrarUsuario(usuario);
-        }
-    }
-
-    private void mostrarUsuario(Usuario usuario) {
-        System.out.println("ID: " + usuario.getId());
-        System.out.println("Nombre: " + usuario.getNombre());
-        System.out.println("Correo: " + usuario.getCorreo());
-        System.out.println("---------------------------------------");
-    }
-
-    private void eliminarInformacion(Scanner scanner) {
-        System.out.println("\n----- Menú de Eliminación -----");
-        System.out.println("1. Eliminar Usuario");
-        System.out.println("2. Salir");
-        System.out.print("Ingrese una opción: ");
-        int opcion = scanner.nextInt();
-        scanner.nextLine();
-        switch (opcion) {
-            case 1:
-                eliminarUsuario(scanner);
-                break;
-            case 2:
-                System.out.println("Regresando al menú principal...");
-                break;
-            default:
-                System.out.println("Opción inválida. Por favor, ingrese una opción válida.");
-        }
+        System.out.print("Ingrese el nuevo nombre: ");
+        String nuevoNombre = scanner.nextLine();
+        System.out.print("Ingrese la nueva contraseña: ");
+        String nuevaContrasena = scanner.nextLine();
+        Usuario usuarioModificado = new Usuario(nuevoNombre, nuevaContrasena, usuario.tiempoRegistro, usuario.pago);
+        usuarios.replace(getIdPorUsuario(usuario), usuarioModificado);
+        listaUsuarios.remove(usuario);
+        listaUsuarios.add(usuarioModificado);
+        pilaUsuarios.remove(usuario);
+        pilaUsuarios.push(usuarioModificado);
+        colaUsuarios.remove(usuario);
+        colaUsuarios.offer(usuarioModificado);
+        System.out.println("Usuario modificado con éxito.");
     }
 
     private void eliminarUsuario(Scanner scanner) {
-        System.out.print("Ingrese el ID del usuario a eliminar: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        if (usuarios.remove(id) != null) {
-            System.out.println("Usuario eliminado.");
-        } else {
-            System.out.println("No se encontró un usuario con ID " + id + ".");
+        System.out.print("Ingrese el nombre del usuario a eliminar: ");
+        String nombre = scanner.nextLine();
+        Usuario usuario = buscarUsuarioPorNombre(nombre);
+        if (usuario == null) {
+            System.out.println("No se encontró un usuario con el nombre " + nombre + ".");
+            return;
         }
+        usuarios.remove(getIdPorUsuario(usuario));
+        listaUsuarios.remove(usuario);
+        pilaUsuarios.remove(usuario);
+        colaUsuarios.remove(usuario);
+        System.out.println("Usuario eliminado con éxito.");
     }
 
-    // Clase interna para representar un Usuario
-    private static class Usuario {
-        private int id;
-        private String nombre;
-        private String correo;
-
-        public int getId() {
-            return id;
+    private Usuario buscarUsuarioPorNombre(String nombre) {
+        for (Usuario usuario : usuarios.values()) {
+            if (usuario.getNombre().equals(nombre)) {
+                return usuario;
+            }
         }
+        return null;
+    }
 
-        public void setId(int id) {
-            this.id = id;
+    private int getIdPorUsuario(Usuario usuario) {
+        for (Map.Entry<Integer, Usuario> entry : usuarios.entrySet()) {
+            if (entry.getValue().equals(usuario)) {
+                return entry.getKey();
+            }
         }
+        return -1; // ID no encontrado
+    }
 
-        public String getNombre() {
-            return nombre;
+    private void mostrarUsuarios() {
+        System.out.println("\n--- Lista de Usuarios ---");
+        for (Map.Entry<Integer, Usuario> entry : usuarios.entrySet()) {
+            System.out.println("ID: " + entry.getKey());
+            entry.getValue().mostrarInformacion();
+            System.out.println("---------------------------------------");
         }
-
-        public void setNombre(String nombre) {
-            this.nombre = nombre;
-        }
-
-        public String getCorreo() {
-            return correo;
-        }
-
-        public void setCorreo(String correo) {
-            this.correo = correo;
-        }
-    }*/
+    }
 }

@@ -115,14 +115,6 @@ public class Serie extends Video {
         System.out.println("Idioma original: " + iAudio);
     }
     
-    public void agregarTemporada() {
-        temporadas++;
-    }
-
-    public void agregarCapitulo() {
-        capitulos++;
-    }
-    
     public void modificarInformacion() {
         Scanner scanner = new Scanner(System.in);
         

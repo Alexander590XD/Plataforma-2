@@ -53,15 +53,7 @@ public class Cancion extends Audio {
     public void setEsExplicita(boolean esExplicita) {
         this.esExplicita = esExplicita;
     }
-    
-    public void reproducir() {
-        System.out.println("Reproduciendo " + getTitulo());
-    }
 
-    public void agregarAPlaylist(String playlist) {
-        System.out.println(getTitulo() + " agregada a la playlist: " + playlist);
-    }
-    
     public void mostrarInfoCancion() {
         super.mostrarInfo(); // Llama al método mostrarInfo() de la clase Audio
         System.out.println("Número de Track: " + numeroTrack);
