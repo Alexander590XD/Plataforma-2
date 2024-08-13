@@ -109,19 +109,5 @@ public class Audio extends ElementoMultimedia{
         System.out.println("Género: " + genero);
         System.out.println("Compositor: " + compositor);
         System.out.println("Discográfica: " + discografica);
-        imprimirLetra();
     }
-
-    public void imprimirLetra() {
-        if (letra != null && !letra.isEmpty()) {
-            System.out.println("Letra:\n" + letra);
-        } else {
-            System.out.println("Letra no disponible.");
-        }
-    }
-
-    public void descargar() {
-        System.out.println("Descargando: " + getTitulo());
-    }
-
 }

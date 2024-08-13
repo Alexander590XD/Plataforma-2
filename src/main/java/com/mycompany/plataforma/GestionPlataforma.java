@@ -4,7 +4,10 @@
  */
 package com.mycompany.plataforma;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -27,11 +30,11 @@ public class GestionPlataforma {
         Scanner scanner = new Scanner(System.in);
         int opcion;
         do {
-            mostrarMenuPrincipal(scanner);
-        } while (true); 
+            opcion = mostrarMenuPrincipal(scanner);
+        } while (opcion != 9); // Salir del bucle principal
     }
 
-    public void mostrarMenuPrincipal(Scanner scanner) {
+    public int mostrarMenuPrincipal(Scanner scanner) {
         int opcion;
         do {
             System.out.println("\n----- Menú Principal -----");
@@ -42,51 +45,41 @@ public class GestionPlataforma {
             System.out.println("5. Modificar Información");
             System.out.println("6. Mostrar Información");
             System.out.println("7. Eliminar Información");
-            System.out.println("8. Salir");
+            System.out.println("8. Ordenar por Duración");
+            System.out.println("9. Salir");
             System.out.print("Ingrese una opción: ");
             opcion = scanner.nextInt();
             scanner.nextLine();
             switch (opcion) {
                 case 1:
-                    if (validarContraseña(scanner)) {
-                        registrarPelicula(scanner);
-                    }
+                    if (validarContraseña(scanner)) registrarPelicula(scanner);
                     break;
                 case 2:
-                    if (validarContraseña(scanner)) {
-                        registrarSerie(scanner);
-                    }
+                    if (validarContraseña(scanner)) registrarSerie(scanner);
                     break;
                 case 3:
-                    if (validarContraseña(scanner)) {
-                        registrarCancion(scanner);
-                    }
+                    if (validarContraseña(scanner)) registrarCancion(scanner);
                     break;
                 case 4:
-                    if (validarContraseña(scanner)) {
-                        registrarEfectoDeSonido(scanner);
-                    }
+                    if (validarContraseña(scanner)) registrarEfectoDeSonido(scanner);
                     break;
                 case 5:
-                    if (validarContraseña(scanner)) {
-                        modificarInformacion(scanner);
-                    }
+                    if (validarContraseña(scanner)) modificarInformacion(scanner);
                     break;
                 case 6:
                     mostrarInformacion(scanner);
                     break;
                 case 7:
-                    if (validarContraseña(scanner)) {
-                        eliminarInformacion(scanner);
-                    }
+                    if (validarContraseña(scanner)) eliminarInformacion(scanner);
                     break;
                 case 8:
                     System.out.println("Saliendo del programa...");
-                    return; 
+                    break; 
                 default:
                     System.out.println("Opción inválida. Por favor, ingrese una opción válida.");
             }
         } while (opcion != 8);
+        return opcion;
     }
 
     private boolean validarContraseña(Scanner scanner) {
@@ -261,41 +254,81 @@ public class GestionPlataforma {
 
     private void mostrarPeliculas() {
         System.out.println("\n--- Información de Películas ---");
+        List<Pelicula> peliculas = new ArrayList<>();
         for (Plataforma plataforma : plataformas.values()) {
             if (plataforma instanceof Pelicula) {
-                ((Pelicula) plataforma).mostrarPelicula();
-                System.out.println("---------------------------------------");
+                peliculas.add((Pelicula) plataforma);
             }
+        }
+        System.out.println("Películas antes de ordenar:");
+        for (Pelicula pelicula : peliculas) {
+            pelicula.mostrarInfo();
+        }
+        peliculas.sort(Comparator.comparingInt(Pelicula::getDuracion)); // Ordenar por duración
+        System.out.println("Películas después de ordenar:");
+        for (Pelicula pelicula : peliculas) {
+            pelicula.mostrarInfo();
+            System.out.println("---------------------------------------");
         }
     }
 
     private void mostrarSeries() {
         System.out.println("\n--- Información de Series ---");
+        List<Serie> series = new ArrayList<>();
         for (Plataforma plataforma : plataformas.values()) {
             if (plataforma instanceof Serie) {
-                ((Serie) plataforma).mostrarSerie();
-                System.out.println("---------------------------------------");
+                series.add((Serie) plataforma);
             }
+        }
+        System.out.println("Series antes de ordenar:");
+        for (Serie serie : series) {
+            serie.mostrarInfo();
+        }
+        series.sort(Comparator.comparingInt(Serie::getDuracion)); // Ordenar por duración
+        System.out.println("Series después de ordenar:");
+        for (Serie serie : series) {
+            serie.mostrarInfo();
+            System.out.println("---------------------------------------");
         }
     }
 
     private void mostrarCanciones() {
         System.out.println("\n--- Información de Canciones ---");
+        List<Cancion> canciones = new ArrayList<>();
         for (Plataforma plataforma : plataformas.values()) {
             if (plataforma instanceof Cancion) {
-                ((Cancion) plataforma).mostrarInfoCancion();
-                System.out.println("---------------------------------------");
+                canciones.add((Cancion) plataforma);
             }
+        }
+        System.out.println(" ---Canciones antes de ordenar: ---\n");
+        for (Cancion cancion : canciones) {
+            cancion.mostrarInfo();
+        }
+        canciones.sort(Comparator.comparingInt(Cancion::getDuracion)); // Ordenar por duración
+        System.out.println(" ---Canciones después de ordenar: ---\n");
+        for (Cancion cancion : canciones) {
+            cancion.mostrarInfo();
+            System.out.println("---------------------------------------");
         }
     }
 
     private void mostrarEfectosDeSonido() {
         System.out.println("\n--- Información de Efectos de Sonido ---");
+        List<EfectoDeSonido> efectos = new ArrayList<>();
         for (Plataforma plataforma : plataformas.values()) {
             if (plataforma instanceof EfectoDeSonido) {
-                ((EfectoDeSonido) plataforma).mostrarInfoEfecto();
-                System.out.println("---------------------------------------");
+                efectos.add((EfectoDeSonido) plataforma);
             }
+        }
+        System.out.println("Efectos de sonido antes de ordenar:");
+        for (EfectoDeSonido efecto : efectos) {
+            efecto.mostrarInfo();
+        }
+        efectos.sort(Comparator.comparingInt(EfectoDeSonido::getDuracion)); // Ordenar por duración
+        System.out.println("Efectos de sonido después de ordenar:");
+        for (EfectoDeSonido efecto : efectos) {
+            efecto.mostrarInfo();
+            System.out.println("---------------------------------------");
         }
     }
 }

@@ -100,8 +100,4 @@ public class ElementoMultimedia extends Plataforma {
         System.out.println("Calidad: " + calidad);
         System.out.println("Fecha de lanzamiento: " + fechalanzamiento.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
-
-    public void modificarFechaLanzamiento(String nuevaFechaStr) {
-        this.fechalanzamiento = LocalDate.parse(nuevaFechaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-    }
 }
