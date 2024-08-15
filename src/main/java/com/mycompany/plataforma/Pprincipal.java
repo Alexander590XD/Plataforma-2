@@ -96,7 +96,7 @@ public class Pprincipal {
         String contrasena = scanner.nextLine();
 
         if ("admin123".equals(contrasena)) {
-            gestionUsuarios.mostrarMenuPrincipal(scanner);
+            gestionUsuarios.mostrarMenu();
         } else {
             System.out.println("Contraseña incorrecta. No tiene acceso a esta funcionalidad.");
         }
@@ -121,59 +121,59 @@ public class Pprincipal {
 
     private static void manejarMenuUsuario(Scanner scanner, Usuario usuario) {
         int opcion;
-        do {
-            System.out.println("\n----- Menú del Usuario -----");
-            System.out.println("1. Ver información del usuario");
-            System.out.println("2. Crear lista de reproducción");
-            System.out.println("3. Agregar contenido a lista de reproducción");
-            System.out.println("4. Marcar contenido como favorito");
-            System.out.println("5. Eliminar contenido de favoritos");
-            System.out.println("6. Ver recomendaciones");
-            System.out.println("7. Cerrar sesión");
-            System.out.print("Ingrese una opción: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine();
+    do {
+        System.out.println("\n----- Menú del Usuario -----");
+        System.out.println("1. Ver información del usuario");
+        System.out.println("2. Crear lista de reproducción");
+        System.out.println("3. Agregar contenido a lista de reproducción");
+        System.out.println("4. Marcar contenido como favorito");
+        System.out.println("5. Eliminar contenido de favoritos");
+        System.out.println("6. Ver recomendaciones");
+        System.out.println("7. Cerrar sesión");
+        System.out.print("Ingrese una opción: ");
+        opcion = scanner.nextInt();
+        scanner.nextLine(); // Consume el salto de línea
 
-            switch (opcion) {
-                case 1:
-                    usuario.mostrarInformacion();
-                    break;
-                case 2:
-                    System.out.print("Ingrese el nombre de la nueva lista de reproducción: ");
-                    String nombreLista = scanner.nextLine();
-                    usuario.crearListaReproduccion(nombreLista);
-                    System.out.println("Lista de reproducción creada.");
-                    break;
-                case 3:
-                    System.out.print("Ingrese el nombre de la lista de reproducción: ");
-                    String nombreListaAgregar = scanner.nextLine();
-                    System.out.print("Ingrese el contenido a agregar: ");
-                    String contenidoAgregar = scanner.nextLine();
-                    usuario.agregarContenidoALista(nombreListaAgregar, contenidoAgregar);
-                    System.out.println("Contenido agregado a la lista.");
-                    break;
-                case 4:
-                    System.out.print("Ingrese el contenido para marcar como favorito: ");
-                    String contenidoFavorito = scanner.nextLine();
-                    usuario.agregarFavorito(contenidoFavorito);
-                    System.out.println("Contenido marcado como favorito.");
-                    break;
-                case 5:
-                    System.out.print("Ingrese el contenido para eliminar de favoritos: ");
-                    String contenidoEliminar = scanner.nextLine();
-                    usuario.eliminarFavorito(contenidoEliminar);
-                    System.out.println("Contenido eliminado de favoritos.");
-                    break;
-                case 6:
-                    usuario.mostrarRecomendaciones();
-                    break;
-                case 7:
-                    System.out.println("Cerrando sesión...");
-                    return;
-                default:
-                    System.out.println("Opción inválida. Por favor, ingrese una opción válida.");
-            }
-        } while (opcion != 7);
+        switch (opcion) {
+            case 1:
+                usuario.mostrarInformacion();
+                break;
+            case 2:
+                System.out.print("Ingrese el nombre de la nueva lista de reproducción: ");
+                String nombreLista = scanner.nextLine();
+                usuario.crearListaReproduccion(nombreLista);
+                System.out.println("Lista de reproducción creada.");
+                break;
+            case 3:
+                System.out.print("Ingrese el nombre de la lista de reproducción: ");
+                String nombreListaAgregar = scanner.nextLine();
+                System.out.print("Ingrese el contenido a agregar: ");
+                String contenidoAgregar = scanner.nextLine();
+                usuario.agregarContenidoALista(nombreListaAgregar, contenidoAgregar);
+                System.out.println("Contenido agregado a la lista.");
+                break;
+            case 4:
+                System.out.print("Ingrese el contenido para marcar como favorito: ");
+                String contenidoFavorito = scanner.nextLine();
+                usuario.agregarFavorito(contenidoFavorito);
+                System.out.println("Contenido marcado como favorito.");
+                break;
+            case 5:
+                System.out.print("Ingrese el contenido para eliminar de favoritos: ");
+                String contenidoEliminar = scanner.nextLine();
+                usuario.eliminarFavorito(contenidoEliminar);
+                System.out.println("Contenido eliminado de favoritos.");
+                break;
+            case 6:
+                usuario.mostrarInformacion(); // Aquí asumo que mostrarInformacion() también muestra recomendaciones
+                break;
+            case 7:
+                System.out.println("Cerrando sesión...");
+                return;
+            default:
+                System.out.println("Opción inválida. Por favor, ingrese una opción válida.");
+        }
+    } while (opcion != 7);
     }
 
     private static void gestionarAnalista(Scanner scanner) {

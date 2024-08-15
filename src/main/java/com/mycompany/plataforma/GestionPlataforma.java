@@ -45,8 +45,7 @@ public class GestionPlataforma {
             System.out.println("5. Modificar Información");
             System.out.println("6. Mostrar Información");
             System.out.println("7. Eliminar Información");
-            System.out.println("8. Ordenar por Duración");
-            System.out.println("9. Salir");
+            System.out.println("8. Salir");
             System.out.print("Ingrese una opción: ");
             opcion = scanner.nextInt();
             scanner.nextLine();

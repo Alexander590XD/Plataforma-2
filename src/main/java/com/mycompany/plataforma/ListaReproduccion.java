@@ -13,25 +13,33 @@ import java.util.List;
  */
 public class ListaReproduccion {
     private String nombre;
-    private List<String> contenido; // Lista de IDs o nombres de contenido
+    private List<Video> contenido; // Lista de objetos Video (incluye Series y Películas)
 
     public ListaReproduccion(String nombre) {
         this.nombre = nombre;
         this.contenido = new ArrayList<>();
     }
 
-    public void agregarContenido(String item) {
+    public void agregarContenido(Video item) {
         contenido.add(item);
     }
 
-    public void eliminarContenido(String item) {
+    public void eliminarContenido(Video item) {
         contenido.remove(item);
     }
 
     public void mostrarContenido() {
         System.out.println("Lista de Reproducción: " + nombre);
-        for (String item : contenido) {
-            System.out.println(" - " + item);
+        for (Video item : contenido) {
+            item.mostrarInfo(); // Llama al método mostrarInfo() de la clase Video
         }
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    void agregarContenido(String contenidoAgregar) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

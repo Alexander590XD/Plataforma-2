@@ -16,11 +16,11 @@ import java.util.Scanner;
 public class Usuario implements IUsuario {
     private String nombre;
     private String contrasena;
-    Tiempo tiempoRegistro;
-    Pago pago;
+    private Tiempo tiempoRegistro;
+    private Pago pago;
     private List<ListaReproduccion> listasReproduccion;
     private List<String> favoritos;
-    private Recomendacion recomendacion; // Recomendaciones personalizadas
+    private Recomendacion recomendacion;
 
     // Constructor
     public Usuario(String nombre, String contrasena, Tiempo tiempoRegistro, Pago pago) {
@@ -30,28 +30,18 @@ public class Usuario implements IUsuario {
         this.pago = pago;
         this.listasReproduccion = new ArrayList<>();
         this.favoritos = new ArrayList<>();
-        this.recomendacion = new Recomendacion(); // Inicializar recomendaciones
-    }
-
-    // Métodos adicionales
-
-    public void verContenido(String contenido) {
-        // Aumentar el historial de visualización cuando se ve contenido
-        recomendacion.agregarVisualizacion(contenido);
-    }
-
-    public void mostrarRecomendaciones() {
-        recomendacion.mostrarRecomendaciones();
+        this.recomendacion = new Recomendacion();
     }
 
     @Override
     public void mostrarInformacion() {
-        mostrarRecomendaciones();
+        Recomendaciones();
     }
     
     public boolean iniciarSesion(String contrasena) {
         return this.contrasena.equals(contrasena);
     }
+
     public static Usuario registrarUsuario() {
         Scanner scanner = new Scanner(System.in);
         
@@ -61,11 +51,9 @@ public class Usuario implements IUsuario {
         System.out.print("Ingrese contraseña: ");
         String contrasena = scanner.nextLine();
         
-        // Captura el tiempo de registro
         Tiempo tiempo = new Tiempo();
         tiempo.capturarHora();
         
-        // Captura la información de pago
         System.out.println("Ingrese la información de pago:");
         Pago pago = Pago.capturarPago();
         
@@ -74,28 +62,42 @@ public class Usuario implements IUsuario {
 
     @Override
     public String getNombre() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        return nombre;
     }
 
     @Override
     public String getContrasena() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return contrasena;
     }
 
-    void agregarContenidoALista(String nombreListaAgregar, String contenidoAgregar) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void agregarContenidoALista(String nombreListaAgregar, String contenidoAgregar) {
+        for (ListaReproduccion lista : listasReproduccion) {
+            if (lista.getNombre().equals(nombreListaAgregar)) {
+                lista.agregarContenido(contenidoAgregar);
+                return;
+            }
+        }
+        System.out.println("Lista no encontrada.");
     }
 
-    void crearListaReproduccion(String nombreLista) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void crearListaReproduccion(String nombreLista) {
+        ListaReproduccion nuevaLista = new ListaReproduccion(nombreLista);
+        listasReproduccion.add(nuevaLista);
     }
 
-    void agregarFavorito(String contenidoFavorito) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void agregarFavorito(String contenidoFavorito) {
+        if (!favoritos.contains(contenidoFavorito)) {
+            favoritos.add(contenidoFavorito);
+        }
     }
 
-    void eliminarFavorito(String contenidoEliminar) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void eliminarFavorito(String contenidoEliminar) {
+        favoritos.remove(contenidoEliminar);
+    }
+
+    private void Recomendaciones() {
+        System.out.println("Recomendaciones personalizadas: ");
+        recomendacion.mostrarRecomendaciones();
     }
 }
 
