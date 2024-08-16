@@ -18,6 +18,8 @@ public class Pprincipal {
         Scanner scanner = new Scanner(System.in);
         int opcion;
 
+        GestionAnalistas gestionAnalistas = new GestionAnalistas();
+        
         do {
             mostrarMenuPrincipal(scanner);
             opcion = scanner.nextInt();
@@ -31,7 +33,7 @@ public class Pprincipal {
                     gestionarUsuario(scanner);
                     break;
                 case 3:
-                    gestionarAnalista(scanner);
+                     gestionarAnalista(scanner, gestionAnalistas);
                     break;
                 case 4:
                     System.out.println("Saliendo del programa...");
@@ -102,7 +104,31 @@ public class Pprincipal {
             System.out.println("Contraseña incorrecta. No tiene acceso a esta funcionalidad.");
         }
     }
+  
+    private static void gestionarAnalista(Scanner scanner, GestionAnalistas gestionAnalistas) {
+         System.out.println("Registro de Analista de Marketing:");
+    System.out.print("Ingrese el nombre: ");
+    String nombre = scanner.nextLine();
+    System.out.print("Ingrese la especialidad: ");
+    String especialidad = scanner.nextLine();
+    System.out.print("Ingrese los años de experiencia: ");
+    int aniosExperiencia = scanner.nextInt();
+    scanner.nextLine(); // Consumir la nueva línea
+    System.out.print("Ingrese la hora de registro (formato HH:mm): ");
+    String horaRegistro = scanner.nextLine();
+    
+    Tiempo tiempoRegistro = new Tiempo();
+    if (!horaRegistro.isEmpty()) {
+        tiempoRegistro.establecerHora(horaRegistro);
+    } else {
+        tiempoRegistro.capturarHora();
+    }
 
+    AnalistaMarketingImpl analista = new AnalistaMarketingImpl(nombre, especialidad, aniosExperiencia, tiempoRegistro);
+    gestionAnalistas.agregarAnalista(analista);
+    gestionAnalistas.mostrarMenuPrincipal(scanner);
+    }
+       
     private static void gestionarUsuario(Scanner scanner) {
         Usuario usuario = Usuario.registrarUsuario();
         boolean sesionIniciada = false;
@@ -200,18 +226,5 @@ public class Pprincipal {
             }
         } while (opcion != 9);
     }
-
-
-    private static void gestionarAnalista(Scanner scanner) {
-        System.out.print("Ingrese la contraseña del analista de marketing: ");
-        String contrasena = scanner.nextLine();
-
-        if ("analista123".equals(contrasena)) {
-            // Por ahora, no hay implementación específica para el analista.
-            System.out.println("Acceso de analista de marketing aún no implementado.");
-        } else {
-            System.out.println("Contraseña incorrecta. No tiene acceso a esta funcionalidad.");
-        }
-    }
-    
+  
 }

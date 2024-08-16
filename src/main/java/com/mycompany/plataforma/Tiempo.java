@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class Tiempo implements Serializable {
      private static final long serialVersionUID = 1L;
-     private int hora, minuto, segundo;
+    private int hora, minuto, segundo;
     
      public void capturarHora() {
         Calendar now = Calendar.getInstance();
@@ -25,5 +25,9 @@ public class Tiempo implements Serializable {
 
     public void imprimeUniversal() {
         System.out.printf("%02d:%02d:%02d\n", hora, minuto, segundo);
+    }
+
+    void establecerHora(String horaRegistro) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

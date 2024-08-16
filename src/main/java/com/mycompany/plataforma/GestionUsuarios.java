@@ -20,11 +20,13 @@ import java.util.Scanner;
 public class GestionUsuarios {
    private List<Usuario> usuarios;
 
+    // Constructor
     public GestionUsuarios() {
         usuarios = new ArrayList<>();
         cargarUsuarios(); // Cargar usuarios al iniciar la aplicación
     }
 
+    // Registrar un nuevo usuario
     public void registrarNuevoUsuario() {
         Usuario nuevoUsuario = Usuario.registrarUsuario();
         if (nuevoUsuario != null) {
@@ -36,6 +38,7 @@ public class GestionUsuarios {
         }
     }
 
+    // Buscar un usuario por nombre
     public Usuario buscarUsuarioPorNombre(String nombre) {
         for (Usuario usuario : usuarios) {
             if (usuario.getNombre().equals(nombre)) {
@@ -45,6 +48,7 @@ public class GestionUsuarios {
         return null;
     }
 
+    // Iniciar sesión
     public Usuario iniciarSesion(String nombre, String contrasena) {
         Usuario usuario = buscarUsuarioPorNombre(nombre);
         if (usuario != null && usuario.iniciarSesion(contrasena)) {
@@ -53,6 +57,7 @@ public class GestionUsuarios {
         return null;
     }
 
+    // Modificar la información de un usuario
     public void modificarUsuario(String nombre) {
         Usuario usuario = buscarUsuarioPorNombre(nombre);
         if (usuario != null) {
@@ -64,6 +69,7 @@ public class GestionUsuarios {
         }
     }
 
+    // Eliminar un usuario
     public void eliminarUsuario(String nombre) {
         Usuario usuario = buscarUsuarioPorNombre(nombre);
         if (usuario != null) {
@@ -75,6 +81,7 @@ public class GestionUsuarios {
         }
     }
 
+    // Mostrar todos los usuarios
     public void mostrarUsuarios() {
         if (usuarios.isEmpty()) {
             System.out.println("No hay usuarios registrados.");
@@ -86,25 +93,32 @@ public class GestionUsuarios {
         }
     }
 
+    // Guardar usuarios en un archivo
     private void guardarUsuarios() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("usuarios.dat"))) {
             oos.writeObject(usuarios);
+            System.out.println("Usuarios guardados exitosamente.");
         } catch (IOException e) {
             System.out.println("Error al guardar usuarios: " + e.getMessage());
         }
     }
 
+    // Cargar usuarios desde un archivo
     private void cargarUsuarios() {
         File file = new File("usuarios.dat");
         if (file.exists()) {
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
                 usuarios = (List<Usuario>) ois.readObject();
+                System.out.println("Usuarios cargados exitosamente.");
             } catch (IOException | ClassNotFoundException e) {
                 System.out.println("Error al cargar usuarios: " + e.getMessage());
             }
+        } else {
+            System.out.println("No se encontró el archivo de usuarios.");
         }
     }
 
+    // Mostrar el menú para gestionar usuarios
     public void mostrarMenu() {
         Scanner scanner = new Scanner(System.in);
         int opcion;
@@ -143,5 +157,11 @@ public class GestionUsuarios {
                     System.out.println("Opción inválida. Por favor, ingrese una opción válida.");
             }
         } while (opcion != 5);
+    }
+
+    // Método principal para ejecutar la aplicación
+    public static void main(String[] args) {
+        GestionUsuarios gestion = new GestionUsuarios();
+        gestion.mostrarMenu(); // Inicia el menú para gestionar usuarios
     }
 }
