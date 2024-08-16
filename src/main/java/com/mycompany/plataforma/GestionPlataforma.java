@@ -24,6 +24,53 @@ public class GestionPlataforma {
     public GestionPlataforma() {
         plataformas = new HashMap<>();
         nextId = 1;
+        registrarElementosPredeterminados();
+    }
+    
+    private void registrarElementosPredeterminados() {
+        registrarPeliculaPredeterminada("Inception", 148);
+        registrarPeliculaPredeterminada("The Matrix", 136);
+        
+        registrarSeriePredeterminada("Breaking Bad", 62);
+        registrarSeriePredeterminada("Stranger Things", 55);
+        
+        registrarCancionPredeterminada("Imagine", 183);
+        registrarCancionPredeterminada("Bohemian Rhapsody", 354);
+        
+        registrarEfectoDeSonidoPredeterminado("Explosion", 5);
+        registrarEfectoDeSonidoPredeterminado("Thunder", 7);
+    }
+    
+     private void registrarPeliculaPredeterminada(String titulo, int duracion) {
+        Pelicula pelicula = new Pelicula();
+        pelicula.setIdElemento(nextId++);
+        pelicula.setTitulo(titulo);
+        pelicula.setDuracion(duracion);
+        plataformas.put(pelicula.getIdElemento(), pelicula);
+    }
+
+    private void registrarSeriePredeterminada(String titulo, int duracion) {
+        Serie serie = new Serie();
+        serie.setIdElemento(nextId++);
+        serie.setTitulo(titulo);
+        serie.setDuracion(duracion);
+        plataformas.put(serie.getIdElemento(), serie);
+    }
+
+    private void registrarCancionPredeterminada(String titulo, int duracion) {
+        Cancion cancion = new Cancion();
+        cancion.setIdElemento(nextId++);
+        cancion.setTitulo(titulo);
+        cancion.setDuracion(duracion);
+        plataformas.put(cancion.getIdElemento(), cancion);
+    }
+
+    private void registrarEfectoDeSonidoPredeterminado(String descripcion, int duracion) {
+        EfectoDeSonido efecto = new EfectoDeSonido();
+        efecto.setIdElemento(nextId++);
+        efecto.setDescripcion(descripcion);
+        efecto.setDuracion(duracion);
+        plataformas.put(efecto.getIdElemento(), efecto);
     }
 
     public void iniciar() {
@@ -329,5 +376,15 @@ public class GestionPlataforma {
             efecto.mostrarInfo();
             System.out.println("---------------------------------------");
         }
+    }
+    
+    public List<Video> obtenerContenidosDisponibles() {
+        List<Video> contenidos = new ArrayList<>();
+        for (Plataforma plataforma : plataformas.values()) {
+            if (plataforma instanceof Video) {
+                contenidos.add((Video) plataforma);
+            }
+        }
+        return contenidos;
     }
 }

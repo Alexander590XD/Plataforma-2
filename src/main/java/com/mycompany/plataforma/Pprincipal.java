@@ -5,6 +5,7 @@
 package com.mycompany.plataforma;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -120,61 +121,78 @@ public class Pprincipal {
     }
 
     private static void manejarMenuUsuario(Scanner scanner, Usuario usuario) {
+        GestionPlataforma gestionPlataforma = new GestionPlataforma();
         int opcion;
-    do {
-        System.out.println("\n----- Menú del Usuario -----");
-        System.out.println("1. Ver información del usuario");
-        System.out.println("2. Crear lista de reproducción");
-        System.out.println("3. Agregar contenido a lista de reproducción");
-        System.out.println("4. Marcar contenido como favorito");
-        System.out.println("5. Eliminar contenido de favoritos");
-        System.out.println("6. Ver recomendaciones");
-        System.out.println("7. Cerrar sesión");
-        System.out.print("Ingrese una opción: ");
-        opcion = scanner.nextInt();
-        scanner.nextLine(); // Consume el salto de línea
+        do {
+            System.out.println("\n----- Menú del Usuario -----");
+            System.out.println("1. Ver información del usuario");
+            System.out.println("2. Crear lista de reproducción");
+            System.out.println("3. Agregar contenido a lista de reproducción");
+            System.out.println("4. Marcar contenido como favorito");
+            System.out.println("5. Eliminar contenido de favoritos");
+            System.out.println("6. Ver recomendaciones");
+            System.out.println("7. Cerrar sesión");
+            System.out.print("Ingrese una opción: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine(); // Consume el salto de línea
 
-        switch (opcion) {
-            case 1:
-                usuario.mostrarInformacion();
-                break;
-            case 2:
-                System.out.print("Ingrese el nombre de la nueva lista de reproducción: ");
-                String nombreLista = scanner.nextLine();
-                usuario.crearListaReproduccion(nombreLista);
-                System.out.println("Lista de reproducción creada.");
-                break;
-            case 3:
-                System.out.print("Ingrese el nombre de la lista de reproducción: ");
-                String nombreListaAgregar = scanner.nextLine();
-                System.out.print("Ingrese el contenido a agregar: ");
-                String contenidoAgregar = scanner.nextLine();
-                usuario.agregarContenidoALista(nombreListaAgregar, contenidoAgregar);
-                System.out.println("Contenido agregado a la lista.");
-                break;
-            case 4:
-                System.out.print("Ingrese el contenido para marcar como favorito: ");
-                String contenidoFavorito = scanner.nextLine();
-                usuario.agregarFavorito(contenidoFavorito);
-                System.out.println("Contenido marcado como favorito.");
-                break;
-            case 5:
-                System.out.print("Ingrese el contenido para eliminar de favoritos: ");
-                String contenidoEliminar = scanner.nextLine();
-                usuario.eliminarFavorito(contenidoEliminar);
-                System.out.println("Contenido eliminado de favoritos.");
-                break;
-            case 6:
-                usuario.mostrarInformacion(); // Aquí asumo que mostrarInformacion() también muestra recomendaciones
-                break;
-            case 7:
-                System.out.println("Cerrando sesión...");
-                return;
-            default:
-                System.out.println("Opción inválida. Por favor, ingrese una opción válida.");
-        }
-    } while (opcion != 7);
+            switch (opcion) {
+                case 1:
+                    usuario.mostrarInformacion();
+                    break;
+                case 2:
+                    System.out.print("Ingrese el nombre de la nueva lista de reproducción: ");
+                    String nombreLista = scanner.nextLine();
+                    usuario.crearListaReproduccion(nombreLista);
+                    System.out.println("Lista de reproducción creada.");
+                    break;
+                case 3:
+                    System.out.print("Ingrese el nombre de la lista de reproducción: ");
+                    String nombreListaAgregar = scanner.nextLine();
+                    
+                    // Obtener los contenidos disponibles
+                    List<Video> contenidosDisponibles = gestionPlataforma.obtenerContenidosDisponibles();
+                    System.out.println("Seleccione el contenido a agregar:");
+                    for (int i = 0; i < contenidosDisponibles.size(); i++) {
+                        Video contenido = contenidosDisponibles.get(i);
+                        System.out.println((i + 1) + ". " + contenido.getTitulo());
+                    }
+                    System.out.print("Ingrese el número del contenido a agregar: ");
+                    int indiceContenido = scanner.nextInt() - 1;
+                    scanner.nextLine(); // Consume el salto de línea
+                    
+                    if (indiceContenido >= 0 && indiceContenido < contenidosDisponibles.size()) {
+                        Video contenidoAgregar = contenidosDisponibles.get(indiceContenido);
+                        usuario.agregarContenidoALista(nombreListaAgregar, contenidoAgregar);
+                        System.out.println("Contenido agregado a la lista.");
+                    } else {
+                        System.out.println("Contenido seleccionado inválido.");
+                    }
+                    break;
+                case 4:
+                    System.out.print("Ingrese el contenido para marcar como favorito: ");
+                    String contenidoFavorito = scanner.nextLine();
+                    usuario.agregarFavorito(contenidoFavorito);
+                    System.out.println("Contenido marcado como favorito.");
+                    break;
+                case 5:
+                    System.out.print("Ingrese el contenido para eliminar de favoritos: ");
+                    String contenidoEliminar = scanner.nextLine();
+                    usuario.eliminarFavorito(contenidoEliminar);
+                    System.out.println("Contenido eliminado de favoritos.");
+                    break;
+                case 6:
+                    usuario.recomendaciones();
+                    break;
+                case 7:
+                    System.out.println("Cerrando sesión...");
+                    return;
+                default:
+                    System.out.println("Opción inválida. Por favor, ingrese una opción válida.");
+            }
+        } while (opcion != 7);
     }
+
 
     private static void gestionarAnalista(Scanner scanner) {
         System.out.print("Ingrese la contraseña del analista de marketing: ");

@@ -20,7 +20,6 @@ public class Usuario implements IUsuario {
     private Pago pago;
     private List<ListaReproduccion> listasReproduccion;
     private List<String> favoritos;
-    private Recomendacion recomendacion;
 
     // Constructor
     public Usuario(String nombre, String contrasena, Tiempo tiempoRegistro, Pago pago) {
@@ -30,12 +29,18 @@ public class Usuario implements IUsuario {
         this.pago = pago;
         this.listasReproduccion = new ArrayList<>();
         this.favoritos = new ArrayList<>();
-        this.recomendacion = new Recomendacion();
     }
 
     @Override
     public void mostrarInformacion() {
-        Recomendaciones();
+        System.out.println("Nombre: " + nombre);
+        System.out.print("Hora de registro: ");
+        tiempoRegistro.imprimeUniversal();
+        if (pago != null) {
+            pago.mostrarInformacion();
+        } else {
+            System.out.println("No se ha registrado ninguna información de pago.");
+    }
     }
     
     public boolean iniciarSesion(String contrasena) {
@@ -70,7 +75,7 @@ public class Usuario implements IUsuario {
         return contrasena;
     }
 
-    public void agregarContenidoALista(String nombreListaAgregar, String contenidoAgregar) {
+    public void agregarContenidoALista(String nombreListaAgregar, Video contenidoAgregar) {
         for (ListaReproduccion lista : listasReproduccion) {
             if (lista.getNombre().equals(nombreListaAgregar)) {
                 lista.agregarContenido(contenidoAgregar);
@@ -95,9 +100,9 @@ public class Usuario implements IUsuario {
         favoritos.remove(contenidoEliminar);
     }
 
-    private void Recomendaciones() {
+    public void recomendaciones() {
         System.out.println("Recomendaciones personalizadas: ");
-        recomendacion.mostrarRecomendaciones();
+        // Aquí puedes agregar lógica para recomendaciones personalizadas basadas en favoritos
     }
 }
 
