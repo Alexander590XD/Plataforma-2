@@ -4,6 +4,7 @@
  */
 package com.mycompany.plataforma;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Scanner;
 
@@ -11,7 +12,8 @@ import java.util.Scanner;
  *
  * @author pato4
  */
-public class Tiempo {
+public class Tiempo implements Serializable {
+     private static final long serialVersionUID = 1L;
      private int hora, minuto, segundo;
     
      public void capturarHora() {

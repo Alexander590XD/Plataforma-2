@@ -120,7 +120,7 @@ public class Pprincipal {
         }
     }
 
-    private static void manejarMenuUsuario(Scanner scanner, Usuario usuario) {
+   private static void manejarMenuUsuario(Scanner scanner, Usuario usuario) {
         GestionPlataforma gestionPlataforma = new GestionPlataforma();
         int opcion;
         do {
@@ -131,7 +131,9 @@ public class Pprincipal {
             System.out.println("4. Marcar contenido como favorito");
             System.out.println("5. Eliminar contenido de favoritos");
             System.out.println("6. Ver recomendaciones");
-            System.out.println("7. Cerrar sesión");
+            System.out.println("7. Modificar cuenta");
+            System.out.println("8. Eliminar cuenta");
+            System.out.println("9. Cerrar sesión");
             System.out.print("Ingrese una opción: ");
             opcion = scanner.nextInt();
             scanner.nextLine(); // Consume el salto de línea
@@ -149,7 +151,7 @@ public class Pprincipal {
                 case 3:
                     System.out.print("Ingrese el nombre de la lista de reproducción: ");
                     String nombreListaAgregar = scanner.nextLine();
-                    
+
                     // Obtener los contenidos disponibles
                     List<Video> contenidosDisponibles = gestionPlataforma.obtenerContenidosDisponibles();
                     System.out.println("Seleccione el contenido a agregar:");
@@ -160,7 +162,7 @@ public class Pprincipal {
                     System.out.print("Ingrese el número del contenido a agregar: ");
                     int indiceContenido = scanner.nextInt() - 1;
                     scanner.nextLine(); // Consume el salto de línea
-                    
+
                     if (indiceContenido >= 0 && indiceContenido < contenidosDisponibles.size()) {
                         Video contenidoAgregar = contenidosDisponibles.get(indiceContenido);
                         usuario.agregarContenidoALista(nombreListaAgregar, contenidoAgregar);
@@ -185,12 +187,18 @@ public class Pprincipal {
                     usuario.recomendaciones();
                     break;
                 case 7:
+                    usuario.modificarCuenta(); // Llama al método para modificar cuenta
+                    break;
+                case 8:
+                    usuario.eliminarCuenta();
+                    break;
+                case 9: 
                     System.out.println("Cerrando sesión...");
                     return;
                 default:
                     System.out.println("Opción inválida. Por favor, ingrese una opción válida.");
             }
-        } while (opcion != 7);
+        } while (opcion != 9);
     }
 
 
@@ -205,4 +213,5 @@ public class Pprincipal {
             System.out.println("Contraseña incorrecta. No tiene acceso a esta funcionalidad.");
         }
     }
+    
 }

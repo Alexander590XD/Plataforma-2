@@ -4,13 +4,15 @@
  */
 package com.mycompany.plataforma;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
 /**
  *
  * @author pato4
  */
-public class Pago {
+public class Pago implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String tipoPago;
     private double monto;
 

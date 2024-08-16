@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.plataforma;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
@@ -12,7 +13,8 @@ import java.util.stream.Stream;
  *
  * @author pato4
  */
-public class Video extends ElementoMultimedia {
+public class Video extends ElementoMultimedia implements Serializable {
+    private static final long serialVersionUID = 1L;
     
     protected String director;
     protected List<String> actores;

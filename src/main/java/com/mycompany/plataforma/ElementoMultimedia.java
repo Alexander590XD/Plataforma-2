@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.plataforma;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -10,8 +11,9 @@ import java.util.Scanner;
  *
  * @author pato4
  */
-public class ElementoMultimedia extends Plataforma {
-    
+public class ElementoMultimedia extends Plataforma implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     protected int idElemento;
     protected String titulo;
     protected int duracion;

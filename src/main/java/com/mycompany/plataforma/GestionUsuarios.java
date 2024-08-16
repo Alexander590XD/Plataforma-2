@@ -4,6 +4,11 @@
  */
 package com.mycompany.plataforma;
 
+import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,16 +22,18 @@ public class GestionUsuarios {
 
     public GestionUsuarios() {
         usuarios = new ArrayList<>();
+        cargarUsuarios(); // Cargar usuarios al iniciar la aplicación
     }
 
     public void registrarNuevoUsuario() {
         Usuario nuevoUsuario = Usuario.registrarUsuario();
-    if (nuevoUsuario != null) {
-        usuarios.add(nuevoUsuario);
-        System.out.println("Usuario registrado exitosamente: " + nuevoUsuario.getNombre());
-    } else {
-        System.out.println("Error al registrar el usuario.");
-    }
+        if (nuevoUsuario != null) {
+            usuarios.add(nuevoUsuario);
+            guardarUsuarios(); // Guardar los usuarios cada vez que se registra uno nuevo
+            System.out.println("Usuario registrado exitosamente: " + nuevoUsuario.getNombre());
+        } else {
+            System.out.println("Error al registrar el usuario.");
+        }
     }
 
     public Usuario buscarUsuarioPorNombre(String nombre) {
@@ -50,7 +57,8 @@ public class GestionUsuarios {
         Usuario usuario = buscarUsuarioPorNombre(nombre);
         if (usuario != null) {
             System.out.println("Modificando información para el usuario: " + nombre);
-            // Implementar lógica para modificar la información del usuario aquí
+            usuario.modificarCuenta(); // Permite al usuario modificar su cuenta
+            guardarUsuarios(); // Guardar los cambios
         } else {
             System.out.println("Usuario no encontrado.");
         }
@@ -60,6 +68,7 @@ public class GestionUsuarios {
         Usuario usuario = buscarUsuarioPorNombre(nombre);
         if (usuario != null) {
             usuarios.remove(usuario);
+            guardarUsuarios(); // Guardar los cambios después de eliminar
             System.out.println("Usuario eliminado exitosamente.");
         } else {
             System.out.println("Usuario no encontrado.");
@@ -73,6 +82,25 @@ public class GestionUsuarios {
             System.out.println("Usuarios registrados:");
             for (Usuario usuario : usuarios) {
                 System.out.println("Usuario: " + usuario.getNombre());
+            }
+        }
+    }
+
+    private void guardarUsuarios() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("usuarios.dat"))) {
+            oos.writeObject(usuarios);
+        } catch (IOException e) {
+            System.out.println("Error al guardar usuarios: " + e.getMessage());
+        }
+    }
+
+    private void cargarUsuarios() {
+        File file = new File("usuarios.dat");
+        if (file.exists()) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+                usuarios = (List<Usuario>) ois.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Error al cargar usuarios: " + e.getMessage());
             }
         }
     }

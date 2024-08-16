@@ -3,14 +3,16 @@
  */
 
 package com.mycompany.plataforma;
+import java.io.Serializable;
 import java.util.Scanner;
 
 /**
  *
  * @author pato4
  */
-public abstract class Plataforma {
-
+public abstract class Plataforma implements Serializable{
+    private static final long serialVersionUID = 1L;
+    
      protected String nombre;
 
     public Plataforma() {
