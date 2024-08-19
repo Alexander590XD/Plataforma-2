@@ -13,21 +13,37 @@ import java.util.Scanner;
  * @author pato4
  */
 public class Tiempo implements Serializable {
-     private static final long serialVersionUID = 1L;
-    private int hora, minuto, segundo;
-    
-     public void capturarHora() {
+    private int hora;
+    private int minuto;
+    private int segundo;
+
+    // Captura la hora actual
+    public void capturarHora() {
         Calendar now = Calendar.getInstance();
         this.hora = now.get(Calendar.HOUR_OF_DAY);
         this.minuto = now.get(Calendar.MINUTE);
         this.segundo = now.get(Calendar.SECOND);
     }
 
-    public void imprimeUniversal() {
-        System.out.printf("%02d:%02d:%02d\n", hora, minuto, segundo);
+    // Establece la hora desde un string en formato HH:mm
+    public void establecerHora(String horaStr) {
+        try {
+            String[] partes = horaStr.split(":");
+            if (partes.length == 2) {
+                this.hora = Integer.parseInt(partes[0]);
+                this.minuto = Integer.parseInt(partes[1]);
+                this.segundo = 0; // Establece los segundos a 0 si no están especificados
+            } else {
+                throw new IllegalArgumentException("Formato de hora no válido.");
+            }
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("Formato de hora no válido. Usando hora actual.");
+            capturarHora();
+        }
     }
 
-    void establecerHora(String horaRegistro) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    // Imprime la hora en formato universal
+    public void imprimeUniversal() {
+        System.out.printf("%02d:%02d:%02d\n", hora, minuto, segundo);
     }
 }

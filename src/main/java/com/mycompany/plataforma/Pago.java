@@ -12,10 +12,11 @@ import java.util.Scanner;
  * @author pato4
  */
 public class Pago implements Serializable {
-    private static final long serialVersionUID = 1L;
+     private static final long serialVersionUID = 1L;
     private String tipoPago;
     private double monto;
 
+    // Método estático para capturar información de pago
     public static Pago capturarPago() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese el tipo de pago: ");
@@ -25,11 +26,13 @@ public class Pago implements Serializable {
         return new Pago(tipoPago, monto);
     }
 
+    // Constructor
     public Pago(String tipoPago, double monto) {
         this.tipoPago = tipoPago;
         this.monto = monto;
     }
 
+    // Método de instancia para mostrar información de pago
     public void mostrarInformacion() {
         System.out.println("Tipo de pago: " + tipoPago);
         System.out.println("Monto: " + monto);

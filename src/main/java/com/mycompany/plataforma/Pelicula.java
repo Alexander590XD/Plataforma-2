@@ -7,19 +7,23 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 /**
- *
- * @author pato4
+ * Clase que representa una película.
+ * Hereda de Video y añade atributos específicos para una película.
  */
 public class Pelicula extends Video{
-    private String genero;
-    private String sinopsis;
-    private String estudio;
-    private String clasificacio;
+    private String genero;           // Género de la película
+    private String sinopsis;         // Sinopsis de la película
+    private String estudio;          // Estudio que produjo la película
+    private String clasificacion;    // Clasificación de edad
 
+    /**
+     * Constructor vacío que solicita datos al usuario.
+     */
     public Pelicula() {
-        super();
+        super();  // Llama al constructor de Video
         Scanner scanner = new Scanner(System.in);
         
+        // Solicita información específica para la película
         System.out.print("Género: ");
         this.genero = scanner.nextLine();
         
@@ -30,20 +34,24 @@ public class Pelicula extends Video{
         this.estudio = scanner.nextLine();
         
         System.out.print("Clasificación de Edad: ");
-        this.clasificacio = scanner.nextLine();
+        this.clasificacion = scanner.nextLine();
     }
     
-    public Pelicula(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechalanzamiento,
-                    String director, List<String> actores, String paisO, List<String> subtitulos,
-                    String genero, String sinopsis, String estudio, String clasificacio) {
-        super(nombre, idElemento, titulo, duracion, calidad, fechalanzamiento, director, actores, paisO, subtitulos);
+    /**
+     * Constructor con parámetros para inicializar una película.
+     */
+    public Pelicula(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechaLanzamiento,
+                    String director, List<String> actores, String paisOrigen, List<String> subtitulos,
+                    String genero, String sinopsis, String estudio, String clasificacion) {
+        super(nombre, idElemento, titulo, duracion, calidad, fechaLanzamiento, director, actores, paisOrigen, subtitulos);
         this.genero = genero;
         this.sinopsis = sinopsis;
         this.estudio = estudio;
-        this.clasificacio = clasificacio;
+        this.clasificacion = clasificacion;
     }
 
-    // Getters and Setters
+    // Getters y setters para los atributos
+
     public String getGenero() {
         return genero;
     }
@@ -68,22 +76,29 @@ public class Pelicula extends Video{
         this.estudio = estudio;
     }
 
-    public String getClasificacio() {
-        return clasificacio;
+    public String getClasificacion() {
+        return clasificacion;
     }
 
-    public void setClasificacio(String clasificacio) {
-        this.clasificacio = clasificacio;
+    public void setClasificacion(String clasificacion) {
+        this.clasificacion = clasificacion;
     }
 
+    /**
+     * Muestra la información de la película.
+     * Llama al método mostrarInfo() de la clase Video.
+     */
     public void mostrarPelicula() {
-        super.mostrarInfo(); // Usa el método de Video para mostrar la información básica
+        super.mostrarInfo(); // Muestra la información básica del video
         System.out.println("Género: " + genero);
         System.out.println("Sinopsis: " + sinopsis);
         System.out.println("Estudio: " + estudio);
-        System.out.println("Clasificación de Edad: " + clasificacio);
+        System.out.println("Clasificación de Edad: " + clasificacion);
     }
 
+    /**
+     * Permite modificar la información de la película.
+     */
     public void modificarInformacion() {
         Scanner scanner = new Scanner(System.in);
         
@@ -96,7 +111,7 @@ public class Pelicula extends Video{
         System.out.print("Ingrese nuevo estudio (actual: " + estudio + "): ");
         this.estudio = scanner.nextLine();
         
-        System.out.print("Ingrese nueva clasificación de edad (actual: " + clasificacio + "): ");
-        this.clasificacio = scanner.nextLine();
+        System.out.print("Ingrese nueva clasificación de edad (actual: " + clasificacion + "): ");
+        this.clasificacion = scanner.nextLine();
     }
 }

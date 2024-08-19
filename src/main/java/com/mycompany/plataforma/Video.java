@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.plataforma;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
@@ -13,47 +12,39 @@ import java.util.stream.Stream;
  *
  * @author pato4
  */
-public class Video extends ElementoMultimedia implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Video extends ElementoMultimedia{
     
-    protected String director;
-    protected List<String> actores;
-    protected String paisO;
-    protected List<String> subtitulos;
+   protected String director;  // Director del video
+    protected List<String> actores;  // Lista de actores
+    protected String paisOrigen;  // País de origen
+    protected List<String> subtitulos;  // Lista de subtítulos
 
+    /**
+     * Constructor vacío que solicita datos al usuario.
+     */
     public Video() {
         super();
         Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Director: ");
-        this.director = scanner.nextLine();
-
-        System.out.print("Actores (separados por comas): ");
-        String actoresInput = scanner.nextLine();
-        this.actores = Stream.of(actoresInput.split(","))
-                             .map(String::trim)
-                             .collect(Collectors.toList());
-
-        System.out.print("País de origen: ");
-        this.paisO = scanner.nextLine();
-
-        System.out.print("Subtítulos (separados por comas): ");
-        String subtitulosInput = scanner.nextLine();
-        this.subtitulos = Stream.of(subtitulosInput.split(","))
-                                .map(String::trim)
-                                .collect(Collectors.toList());
+        this.director = promptString(scanner, "Director: ");
+        this.actores = promptList(scanner, "Actores (separados por comas): ");
+        this.paisOrigen = promptString(scanner, "País de origen: ");
+        this.subtitulos = promptList(scanner, "Subtítulos (separados por comas): ");
     }
 
-    public Video(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechalanzamiento,
-                 String director, List<String> actores, String paisO, List<String> subtitulos) {
-        super(nombre, idElemento, titulo, duracion, calidad, fechalanzamiento);
+    /**
+     * Constructor con parámetros para inicializar un video.
+     */
+    public Video(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechaLanzamiento,
+                 String director, List<String> actores, String paisOrigen, List<String> subtitulos) {
+        super(nombre, idElemento, titulo, duracion, calidad, fechaLanzamiento);
         this.director = director;
         this.actores = actores;
-        this.paisO = paisO;
+        this.paisOrigen = paisOrigen;
         this.subtitulos = subtitulos;
     }
 
-    // Getters and Setters
+    // Getters y setters para los atributos
+
     public String getDirector() {
         return director;
     }
@@ -70,12 +61,12 @@ public class Video extends ElementoMultimedia implements Serializable {
         this.actores = actores;
     }
 
-    public String getPaisO() {
-        return paisO;
+    public String getPaisOrigen() {
+        return paisOrigen;
     }
 
-    public void setPaisO(String paisO) {
-        this.paisO = paisO;
+    public void setPaisOrigen(String paisOrigen) {
+        this.paisOrigen = paisOrigen;
     }
 
     public List<String> getSubtitulos() {
@@ -86,31 +77,23 @@ public class Video extends ElementoMultimedia implements Serializable {
         this.subtitulos = subtitulos;
     }
 
+    /**
+     * Implementación del método abstracto para mostrar la información del video.
+     */
     @Override
     public void mostrarInfo() {
-        super.mostrarInfo(); // Muestra la información básica del elemento multimedia
+        super.mostrarInfo();  // Muestra la información básica del elemento multimedia
         System.out.println("Director: " + director);
         System.out.println("Actores: " + String.join(", ", actores));
-        System.out.println("País de Origen: " + paisO);
+        System.out.println("País de Origen: " + paisOrigen);
         System.out.println("Subtítulos: " + String.join(", ", subtitulos));
     }
 
-    public void reproducir() {
-        System.out.println("Reproduciendo: " + getTitulo());
+    private String promptString(Scanner scanner, String director_) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public void verTrailer() {
-        System.out.println("Viendo tráiler de: " + getTitulo());
+    private List<String> promptList(Scanner scanner, String actores_separados_por_comas_) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    public String obtenerDuracionFormateada() {
-        int horas = getDuracion() / 60;
-        int minutos = getDuracion() % 60;
-        return horas + "h " + minutos + "min";
-    }
-
-    public boolean tieneSubtitulosEnIdioma(String idioma) {
-        return subtitulos.contains(idioma);
-    }
-    
 }

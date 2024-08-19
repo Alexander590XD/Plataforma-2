@@ -12,33 +12,41 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 /**
- *
- * @author pato4
+ * La clase GestionUsuarios administra una lista de usuarios, permitiendo
+ * registrar, modificar, eliminar y mostrar usuarios. Implementa la persistencia
+ * de usuarios en un archivo.
  */
 public class GestionUsuarios {
-   private List<Usuario> usuarios;
+   // Lista de usuarios gestionados por esta clase.
+    private List<Usuario> usuarios;
 
-    // Constructor
+    /**
+     * Constructor que inicializa la lista de usuarios y carga los usuarios desde el archivo.
+     */
     public GestionUsuarios() {
         usuarios = new ArrayList<>();
-        cargarUsuarios(); // Cargar usuarios al iniciar la aplicación
+        cargarUsuarios(); // Carga usuarios al iniciar la aplicación
     }
 
-    // Registrar un nuevo usuario
+    /**
+     * Registra un nuevo usuario mediante la captura de datos.
+     */
     public void registrarNuevoUsuario() {
         Usuario nuevoUsuario = Usuario.registrarUsuario();
         if (nuevoUsuario != null) {
             usuarios.add(nuevoUsuario);
-            guardarUsuarios(); // Guardar los usuarios cada vez que se registra uno nuevo
+            guardarUsuarios(); // Guarda los usuarios cada vez que se registra uno nuevo
             System.out.println("Usuario registrado exitosamente: " + nuevoUsuario.getNombre());
         } else {
             System.out.println("Error al registrar el usuario.");
         }
     }
 
-    // Buscar un usuario por nombre
+    /**
+     * Busca un usuario por nombre.
+     * @return El usuario encontrado o null si no existe.
+     */
     public Usuario buscarUsuarioPorNombre(String nombre) {
         for (Usuario usuario : usuarios) {
             if (usuario.getNombre().equals(nombre)) {
@@ -48,7 +56,10 @@ public class GestionUsuarios {
         return null;
     }
 
-    // Iniciar sesión
+    /**
+     * Inicia sesión para un usuario dado su nombre y contraseña.
+     * @return El usuario si las credenciales son correctas, null en caso contrario.
+     */
     public Usuario iniciarSesion(String nombre, String contrasena) {
         Usuario usuario = buscarUsuarioPorNombre(nombre);
         if (usuario != null && usuario.iniciarSesion(contrasena)) {
@@ -57,31 +68,37 @@ public class GestionUsuarios {
         return null;
     }
 
-    // Modificar la información de un usuario
+    /**
+     * Modifica la información de un usuario dado su nombre.
+     */
     public void modificarUsuario(String nombre) {
         Usuario usuario = buscarUsuarioPorNombre(nombre);
         if (usuario != null) {
             System.out.println("Modificando información para el usuario: " + nombre);
             usuario.modificarCuenta(); // Permite al usuario modificar su cuenta
-            guardarUsuarios(); // Guardar los cambios
+            guardarUsuarios(); // Guarda los cambios
         } else {
             System.out.println("Usuario no encontrado.");
         }
     }
 
-    // Eliminar un usuario
+    /**
+     * Elimina un usuario dado su nombre.
+     */
     public void eliminarUsuario(String nombre) {
         Usuario usuario = buscarUsuarioPorNombre(nombre);
         if (usuario != null) {
             usuarios.remove(usuario);
-            guardarUsuarios(); // Guardar los cambios después de eliminar
+            guardarUsuarios(); // Guarda los cambios después de eliminar
             System.out.println("Usuario eliminado exitosamente.");
         } else {
             System.out.println("Usuario no encontrado.");
         }
     }
 
-    // Mostrar todos los usuarios
+    /**
+     * Muestra todos los usuarios registrados.
+     */
     public void mostrarUsuarios() {
         if (usuarios.isEmpty()) {
             System.out.println("No hay usuarios registrados.");
@@ -93,7 +110,9 @@ public class GestionUsuarios {
         }
     }
 
-    // Guardar usuarios en un archivo
+    /**
+     * Guarda la lista de usuarios en un archivo.
+     */
     private void guardarUsuarios() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("usuarios.dat"))) {
             oos.writeObject(usuarios);
@@ -103,7 +122,9 @@ public class GestionUsuarios {
         }
     }
 
-    // Cargar usuarios desde un archivo
+    /**
+     * Carga la lista de usuarios desde un archivo.
+     */
     private void cargarUsuarios() {
         File file = new File("usuarios.dat");
         if (file.exists()) {
@@ -118,7 +139,9 @@ public class GestionUsuarios {
         }
     }
 
-    // Mostrar el menú para gestionar usuarios
+    /**
+     * Muestra el menú para gestionar usuarios.
+     */
     public void mostrarMenu() {
         Scanner scanner = new Scanner(System.in);
         int opcion;
@@ -159,7 +182,9 @@ public class GestionUsuarios {
         } while (opcion != 5);
     }
 
-    // Método principal para ejecutar la aplicación
+    /**
+     * Método principal para ejecutar la aplicación.
+     */
     public static void main(String[] args) {
         GestionUsuarios gestion = new GestionUsuarios();
         gestion.mostrarMenu(); // Inicia el menú para gestionar usuarios

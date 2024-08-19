@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class Pprincipal {
     
-      public static void main(String[] args) {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int opcion;
 
@@ -23,7 +23,7 @@ public class Pprincipal {
         do {
             mostrarMenuPrincipal(scanner);
             opcion = scanner.nextInt();
-            scanner.nextLine();
+            scanner.nextLine(); // Consumir el salto de línea
 
             switch (opcion) {
                 case 1:
@@ -33,7 +33,7 @@ public class Pprincipal {
                     gestionarUsuario(scanner);
                     break;
                 case 3:
-                     gestionarAnalista(scanner, gestionAnalistas);
+                    gestionarAnalista(scanner, gestionAnalistas);
                     break;
                 case 4:
                     System.out.println("Saliendo del programa...");
@@ -42,6 +42,8 @@ public class Pprincipal {
                     System.out.println("Opción inválida. Por favor, ingrese una opción válida.");
             }
         } while (opcion != 4);
+
+        scanner.close(); // Cerrar el Scanner al final
     }
 
     private static void mostrarMenuPrincipal(Scanner scanner) {
@@ -52,20 +54,20 @@ public class Pprincipal {
         System.out.println("4. Salir");
         System.out.print("Ingrese una opción: ");
     }
-    
-    private static void mostrarMenuSecundario(Scanner scanner){
+
+    private static void mostrarMenuSecundario(Scanner scanner) {
         GestionPlataforma gestionPlataforma = new GestionPlataforma();
         GestionUsuarios gestionUsuarios = new GestionUsuarios();
         
-        int ad = 0;
+        int ad;
         do {
-            System.out.println("Gestionar: ");
+            System.out.println("\n----- Menú de Gestión -----");
             System.out.println("1. Plataforma");
             System.out.println("2. Usuarios");
             System.out.println("3. Salir");
             System.out.print("Ingrese una opción: ");
             ad = scanner.nextInt();
-            scanner.nextLine();
+            scanner.nextLine(); // Consumir el salto de línea
 
             switch (ad) {
                 case 1:
@@ -75,8 +77,8 @@ public class Pprincipal {
                     gestionarAdministrador2(scanner, gestionUsuarios);
                     break;
                 case 3:
-                    System.out.println("Saliendo del programa...");
-                    return;
+                    System.out.println("Saliendo del menú de gestión...");
+                    break;
                 default:
                     System.out.println("Opción inválida. Por favor, ingrese una opción válida.");
             }
@@ -104,31 +106,63 @@ public class Pprincipal {
             System.out.println("Contraseña incorrecta. No tiene acceso a esta funcionalidad.");
         }
     }
-  
+
     private static void gestionarAnalista(Scanner scanner, GestionAnalistas gestionAnalistas) {
-         System.out.println("Registro de Analista de Marketing:");
-    System.out.print("Ingrese el nombre: ");
-    String nombre = scanner.nextLine();
-    System.out.print("Ingrese la especialidad: ");
-    String especialidad = scanner.nextLine();
-    System.out.print("Ingrese los años de experiencia: ");
-    int aniosExperiencia = scanner.nextInt();
-    scanner.nextLine(); // Consumir la nueva línea
-    System.out.print("Ingrese la hora de registro (formato HH:mm): ");
-    String horaRegistro = scanner.nextLine();
-    
-    Tiempo tiempoRegistro = new Tiempo();
-    if (!horaRegistro.isEmpty()) {
-        tiempoRegistro.establecerHora(horaRegistro);
-    } else {
-        tiempoRegistro.capturarHora();
+        System.out.println("Registro de Analista de Marketing:");
+        System.out.print("Ingrese el nombre: ");
+        String nombre = scanner.nextLine();
+        System.out.print("Ingrese la especialidad: ");
+        String especialidad = scanner.nextLine();
+        System.out.print("Ingrese los años de experiencia: ");
+        int aniosExperiencia = scanner.nextInt();
+        scanner.nextLine(); // Consumir el salto de línea
+        System.out.print("Ingrese la hora de registro (formato HH:mm) o presione Enter para usar la hora actual: ");
+        String horaRegistro = scanner.nextLine();
+
+        Tiempo tiempoRegistro = new Tiempo();
+        if (!horaRegistro.isEmpty()) {
+            tiempoRegistro.establecerHora(horaRegistro);
+        } else {
+            tiempoRegistro.capturarHora();
+        }
+
+        AnalistaMarketing analista = new AnalistaMarketing(nombre, especialidad, aniosExperiencia, tiempoRegistro) {
+            @Override
+            public void mostrarInformacion() {
+                System.out.println("Nombre: " + getNombre());
+                System.out.println("Especialidad: " + getEspecialidad());
+                System.out.println("Años de Experiencia: " + getAniosExperiencia());
+                System.out.print("Hora de Registro: ");
+                getTiempoRegistro().imprimeUniversal();
+            }
+
+            @Override
+            public void realizarEncuesta(Scanner scanner) {
+                System.out.println("Método no implementado para esta clase abstracta.");
+            }
+
+            @Override
+            public void colaborarEnCampania(Scanner scanner) {
+                System.out.println("Método no implementado para esta clase abstracta.");
+            }
+
+            @Override
+            public void mostrarComentariosRecopilados() {
+                imprimirComentariosRecopilados();
+            }
+
+            @Override
+            public void mostrarCampañasColaboradas() {
+                imprimirCampanasColaboradas();
+            }
+        };
+
+        gestionAnalistas.agregarAnalista(analista);
+        System.out.println("Analista registrado exitosamente.");
+
+        gestionAnalistas.mostrarMenuPrincipal(scanner);
     }
 
-    AnalistaMarketingImpl analista = new AnalistaMarketingImpl(nombre, especialidad, aniosExperiencia, tiempoRegistro);
-    gestionAnalistas.agregarAnalista(analista);
-    gestionAnalistas.mostrarMenuPrincipal(scanner);
-    }
-       
     private static void gestionarUsuario(Scanner scanner) {
         Usuario usuario = Usuario.registrarUsuario();
         boolean sesionIniciada = false;
@@ -146,7 +180,7 @@ public class Pprincipal {
         }
     }
 
-   private static void manejarMenuUsuario(Scanner scanner, Usuario usuario) {
+    private static void manejarMenuUsuario(Scanner scanner, Usuario usuario) {
         GestionPlataforma gestionPlataforma = new GestionPlataforma();
         int opcion;
         do {
@@ -162,7 +196,7 @@ public class Pprincipal {
             System.out.println("9. Cerrar sesión");
             System.out.print("Ingrese una opción: ");
             opcion = scanner.nextInt();
-            scanner.nextLine(); // Consume el salto de línea
+            scanner.nextLine(); // Consumir el salto de línea
 
             switch (opcion) {
                 case 1:
@@ -187,7 +221,7 @@ public class Pprincipal {
                     }
                     System.out.print("Ingrese el número del contenido a agregar: ");
                     int indiceContenido = scanner.nextInt() - 1;
-                    scanner.nextLine(); // Consume el salto de línea
+                    scanner.nextLine(); // Consumir el salto de línea
 
                     if (indiceContenido >= 0 && indiceContenido < contenidosDisponibles.size()) {
                         Video contenidoAgregar = contenidosDisponibles.get(indiceContenido);
@@ -218,9 +252,9 @@ public class Pprincipal {
                 case 8:
                     usuario.eliminarCuenta();
                     break;
-                case 9: 
+                case 9:
                     System.out.println("Cerrando sesión...");
-                    return;
+                    break;
                 default:
                     System.out.println("Opción inválida. Por favor, ingrese una opción válida.");
             }

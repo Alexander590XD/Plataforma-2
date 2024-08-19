@@ -8,12 +8,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 /**
- *
- * @author pato4
+ * La clase Usuario representa a un usuario del sistema con capacidad para gestionar
+ * listas de reproducción, favoritos y otra información personal. Implementa la interfaz
+ * IUsuario y es serializable.
  */
-
 public class Usuario implements IUsuario, Serializable {
     private static final long serialVersionUID = 1L;
     private String nombre;
@@ -23,7 +22,9 @@ public class Usuario implements IUsuario, Serializable {
     private List<ListaReproduccion> listasReproduccion;
     private List<String> favoritos;
 
-    // Constructor
+    /**
+     * Constructor para crear una instancia de Usuario con la información proporcionada.
+     */
     public Usuario(String nombre, String contrasena, Tiempo tiempoRegistro, Pago pago) {
         this.nombre = nombre;
         this.contrasena = contrasena;
@@ -31,6 +32,18 @@ public class Usuario implements IUsuario, Serializable {
         this.pago = pago;
         this.listasReproduccion = new ArrayList<>();
         this.favoritos = new ArrayList<>();
+    }
+
+    // Métodos implementados de la interfaz IUsuario
+
+    @Override
+    public String getNombre() {
+        return nombre;
+    }
+
+    @Override
+    public String getContrasena() {
+        return contrasena;
     }
 
     @Override
@@ -44,43 +57,39 @@ public class Usuario implements IUsuario, Serializable {
             System.out.println("No se ha registrado ninguna información de pago.");
         }
     }
-    
+
+    // Método de instancia para iniciar sesión
     public boolean iniciarSesion(String contrasena) {
         return this.contrasena.equals(contrasena);
     }
 
+    // Método estático para registrar un usuario
     public static Usuario registrarUsuario() {
         Scanner scanner = new Scanner(System.in);
-        
+
         System.out.print("Ingrese nombre de usuario: ");
         String nombre = scanner.nextLine();
-        
+
         System.out.print("Ingrese contraseña: ");
         String contrasena = scanner.nextLine();
-        
+
         Tiempo tiempo = new Tiempo();
         tiempo.capturarHora();
-        
+
         System.out.println("Ingrese la información de pago:");
         Pago pago = Pago.capturarPago();
-        
+
         return new Usuario(nombre, contrasena, tiempo, pago);
     }
 
-    @Override
-    public String getNombre() {
-        return nombre;
-    }
+    // Métodos para gestionar listas de reproducción
 
-    @Override
-    public String getContrasena() {
-        return contrasena;
-    }
-
-   public void agregarContenidoALista(String nombreListaAgregar, Video contenidoAgregar) {
+    /**
+     * Agrega un contenido a una lista de reproducción.
+     */
+    public void agregarContenidoALista(String nombreListaAgregar, Video contenidoAgregar) {
         for (ListaReproduccion lista : listasReproduccion) {
             if (lista.getNombre().equals(nombreListaAgregar)) {
-                // Verificar si el contenido a agregar es un registro predeterminado
                 if (contenidoAgregar != null) {
                     lista.agregarContenido(contenidoAgregar);
                     System.out.println("Contenido agregado a la lista.");
@@ -93,12 +102,20 @@ public class Usuario implements IUsuario, Serializable {
         System.out.println("Lista no encontrada.");
     }
 
+    /**
+     * Crea una nueva lista de reproducción.
+     */
     public void crearListaReproduccion(String nombreLista) {
         ListaReproduccion nuevaLista = new ListaReproduccion(nombreLista);
         listasReproduccion.add(nuevaLista);
         System.out.println("Lista de reproducción creada.");
     }
 
+    // Métodos para gestionar favoritos
+
+    /**
+     * Agrega un contenido a la lista de favoritos.
+     */
     public void agregarFavorito(String contenidoFavorito) {
         if (!favoritos.contains(contenidoFavorito)) {
             favoritos.add(contenidoFavorito);
@@ -108,6 +125,10 @@ public class Usuario implements IUsuario, Serializable {
         }
     }
 
+    /**
+     * Elimina un contenido de la lista de favoritos.
+     * @param contenidoEliminar Contenido a eliminar de favoritos.
+     */
     public void eliminarFavorito(String contenidoEliminar) {
         if (favoritos.remove(contenidoEliminar)) {
             System.out.println("Favorito eliminado.");
@@ -116,11 +137,17 @@ public class Usuario implements IUsuario, Serializable {
         }
     }
 
+    /**
+     * Muestra recomendaciones personalizadas basadas en favoritos.
+     */
     public void recomendaciones() {
         System.out.println("Recomendaciones personalizadas: ");
         // Aquí puedes agregar lógica para recomendaciones personalizadas basadas en favoritos
     }
 
+    /**
+     * Muestra todas las listas de reproducción del usuario.
+     */
     public void mostrarListasReproduccion() {
         System.out.println("Listas de reproducción del usuario " + nombre + ":");
         for (ListaReproduccion lista : listasReproduccion) {
@@ -128,6 +155,12 @@ public class Usuario implements IUsuario, Serializable {
             System.out.println();
         }
     }
+
+    // Métodos de instancia para modificar y eliminar la cuenta
+
+    /**
+     * Permite al usuario modificar su información personal.
+     */
     public void modificarCuenta() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("¿Qué información desea modificar?");
@@ -150,7 +183,7 @@ public class Usuario implements IUsuario, Serializable {
                 System.out.println("Contraseña modificada con éxito.");
                 break;
             case 3:
-                this.pago = Pago.capturarPago(); // Suponiendo que se puede capturar nueva información de pago
+                this.pago = Pago.capturarPago();
                 System.out.println("Información de pago modificada con éxito.");
                 break;
             default:
@@ -159,8 +192,62 @@ public class Usuario implements IUsuario, Serializable {
         }
     }
 
+    /**
+     * Elimina la cuenta del usuario.
+     */
     public void eliminarCuenta() {
         System.out.println("Cuenta eliminada con éxito.");
     }
+
+    /**
+     * La clase ListaReproduccion representa una lista de reproducción que contiene
+     * una colección de videos.
+     */
+    private static class ListaReproduccion implements Serializable {
+        private static final long serialVersionUID = 1L;
+        private String nombre;
+        private List<Video> contenido; // Lista de objetos Video (incluye Series y Películas)
+
+        /**
+         * Constructor para crear una instancia de ListaReproduccion con el nombre proporcionado.
+         */
+        public ListaReproduccion(String nombre) {
+            this.nombre = nombre;
+            this.contenido = new ArrayList<>();
+        }
+
+        /**
+         * Agrega un contenido a la lista de reproducción.
+         */
+        public void agregarContenido(Video item) {
+            contenido.add(item);
+        }
+
+        /**
+         * Elimina un contenido de la lista de reproducción.
+         */
+        public void eliminarContenido(Video item) {
+            contenido.remove(item);
+        }
+
+        /**
+         * Muestra el contenido de la lista de reproducción.
+         */
+        public void mostrarContenido() {
+            System.out.println("Lista de Reproducción: " + nombre);
+            for (Video item : contenido) {
+                item.mostrarInfo(); // Llama al método mostrarInfo() de la clase Video
+            }
+        }
+
+        /**
+         * Obtiene el nombre de la lista de reproducción.
+         * @return Nombre de la lista de reproducción.
+         */
+        public String getNombre() {
+            return nombre;
+        }
+    }
 }
+
 

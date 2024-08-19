@@ -10,6 +10,7 @@ package com.mycompany.plataforma;
  */
 public interface IUsuario {
     
+ // Métodos abstractos que deben ser implementados por las clases que implementan esta interfaz
     String getNombre();
     String getContrasena();
     void mostrarInformacion();

@@ -6,38 +6,45 @@ package com.mycompany.plataforma;
 
 import java.time.LocalDate;
 import java.util.Scanner;
-
 /**
- *
- * @author pato4
+ * Clase que representa una canción.
+ * Hereda de Audio y añade atributos específicos para una canción.
  */
 public class Cancion extends Audio {
 
-    private int numeroTrack;
-    private boolean esExplicita;
-    
+    private int numeroTrack;        // Número de track en el álbum
+    private boolean esExplicita;    // Indica si la canción es explícita
+
+    /**
+     * Constructor vacío que solicita datos al usuario.
+     */
     public Cancion() {
-        super();
+        super();  // Llama al constructor de Audio
         Scanner scanner = new Scanner(System.in);
 
+        // Solicita información específica para la canción
         System.out.print("Número de Track: ");
         this.numeroTrack = scanner.nextInt();
         scanner.nextLine();
-
+        
         System.out.print("¿Es explícita? (true/false): ");
         this.esExplicita = scanner.nextBoolean();
         scanner.nextLine();
     }
 
-    public Cancion(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechalanzamiento,
+    /**
+     * Constructor con parámetros para inicializar una canción.
+     */
+    public Cancion(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechaLanzamiento,
                    String artista, String album, String genero, String compositor, String discografica, String letra,
                    int numeroTrack, boolean esExplicita) {
-        super(nombre, idElemento, titulo, duracion, calidad, fechalanzamiento, artista, album, genero, compositor, discografica, letra);
+        super(nombre, idElemento, titulo, duracion, calidad, fechaLanzamiento, artista, album, genero, compositor, discografica, letra);
         this.numeroTrack = numeroTrack;
         this.esExplicita = esExplicita;
     }
     
-    // Getters and Setters
+    // Getters y setters para los atributos
+
     public int getNumeroTrack() {
         return numeroTrack;
     }
@@ -54,19 +61,26 @@ public class Cancion extends Audio {
         this.esExplicita = esExplicita;
     }
 
+    /**
+     * Muestra la información de la canción.
+     * Llama al método mostrarInfo() de la clase Audio.
+     */
     public void mostrarInfoCancion() {
-        super.mostrarInfo(); // Llama al método mostrarInfo() de la clase Audio
+        super.mostrarInfo(); // Muestra la información básica del audio
         System.out.println("Número de Track: " + numeroTrack);
         System.out.println("Es explícita: " + (esExplicita ? "Sí" : "No"));
     }
     
+    /**
+     * Permite modificar la información de la canción.
+     */
     public void modificarInformacion() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Ingrese nuevo número de track (actual: " + numeroTrack + "): ");
         this.numeroTrack = scanner.nextInt();
         scanner.nextLine();
-
+        
         System.out.print("¿Es explícita? (true/false, actual: " + (esExplicita ? "Sí" : "No") + "): ");
         this.esExplicita = scanner.nextBoolean();
         scanner.nextLine();

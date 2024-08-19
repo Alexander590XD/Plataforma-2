@@ -3,43 +3,55 @@
  */
 
 package com.mycompany.plataforma;
-import java.io.Serializable;
 import java.util.Scanner;
 
 /**
  *
  * @author pato4
  */
-public abstract class Plataforma implements Serializable{
-    private static final long serialVersionUID = 1L;
-    
-     protected String nombre;
+
+/**
+ * Clase abstracta que representa una plataforma
+ */
+
+public abstract class Plataforma{
+     protected String nombre;  // Nombre de la plataforma
 
     public Plataforma() {
-        // Constructor vacío
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Director: ");
+        this.nombre = scanner.nextLine();
     }
 
+    /**
+     * Constructor con nombre para inicializar la plataforma.
+     * @param nombre Nombre de la plataforma.
+     */
     public Plataforma(String nombre) {
         this.nombre = nombre;
     }
 
     /**
-     * @return the nombre
+     * Obtiene el nombre de la plataforma.
+     * @return Nombre de la plataforma.
      */
     public String getNombre() {
         return nombre;
     }
 
     /**
-     * @param nombre the nombre to set
+     * Establece el nombre de la plataforma.
+     * @param nombre Nombre de la plataforma.
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public abstract void mostrarInfo();
-   
-    public void mostrarPlataforma() {
+    /**
+     * Muestra la información básica de la plataforma.
+     */
+    protected void mostrarPlataforma() {
         System.out.println("Nombre de la Plataforma: " + nombre);
     }
 }
