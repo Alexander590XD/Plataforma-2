@@ -264,197 +264,251 @@ public class GestionPlataforma {
         }
     }
 
-     private <T extends ElementoMultimedia> void ordenarPorSeleccion(List<T> lista) {
-        int n = lista.size();
-        for (int i = 0; i < n - 1; i++) {
-            int minIndex = i;
-            for (int j = i + 1; j < n; j++) {
+    // Método genérico para ordenar una lista de elementos multimedia usando el algoritmo de selección
+    private <T extends ElementoMultimedia> void ordenarPorSeleccion(List<T> lista) {
+        int n = lista.size(); // Obtiene el tamaño de la lista
+        for (int i = 0; i < n - 1; i++) { // Recorre cada elemento de la lista, excepto el último
+            int minIndex = i; // Asume que el elemento actual es el mínimo
+            for (int j = i + 1; j < n; j++) { // Compara el elemento actual con los siguientes elementos
                 if (lista.get(j).getDuracion() < lista.get(minIndex).getDuracion()) {
-                    minIndex = j;
+                    minIndex = j; // Actualiza el índice del elemento mínimo
                 }
             }
-            T temp = lista.get(minIndex);
-            lista.set(minIndex, lista.get(i));
-            lista.set(i, temp);
+            // Intercambia el elemento en la posición actual con el elemento mínimo encontrado
+            T temp = lista.get(minIndex); // Almacena temporalmente el elemento mínimo
+            lista.set(minIndex, lista.get(i)); // Coloca el elemento actual en la posición del mínimo
+            lista.set(i, temp); // Coloca el elemento mínimo en la posición actual
         }
     }
 
+    // Método genérico para ordenar una lista de elementos multimedia usando el algoritmo de inserción
     private <T extends ElementoMultimedia> void ordenarPorInsercion(List<T> lista) {
-        int n = lista.size();
-        for (int i = 1; i < n; i++) {
-            T clave = lista.get(i);
-            int j = i - 1;
+        int n = lista.size(); // Obtiene el tamaño de la lista
+        for (int i = 1; i < n; i++) { // Comienza desde el segundo elemento hasta el final
+            T clave = lista.get(i); // Toma el elemento actual para insertar en la parte ordenada
+            int j = i - 1; // El índice del último elemento de la parte ordenada
+            // Mueve los elementos que son mayores que la clave una posición a la derecha
             while (j >= 0 && lista.get(j).getDuracion() > clave.getDuracion()) {
-                lista.set(j + 1, lista.get(j));
-                j = j - 1;
+                lista.set(j + 1, lista.get(j)); // Mueve el elemento a la derecha
+                j = j - 1; // Mueve el índice hacia la izquierda
             }
+            // Inserta la clave en su posición correcta en la parte ordenada
             lista.set(j + 1, clave);
         }
     }
-    // Muestra información de todas las películas, ordenadas por duración
-        private void mostrarPeliculas() {
-        System.out.println("\n--- Información de Películas ---");
-        List<Pelicula> peliculas = new ArrayList<>();
+
+    // Método para mostrar la información de todas las películas, ordenadas por duración
+    private void mostrarPeliculas() {
+        System.out.println("\n" + "-".repeat(40)); // Línea superior
+        System.out.println("  ** Información de Películas **  "); // Título centralizado
+        System.out.println("-".repeat(40)); // Línea inferior
+
+        List<Pelicula> peliculas = new ArrayList<>(); // Crea una lista para almacenar las películas
+
+        // Recorre todos los elementos de la colección 'plataformas'
         for (Plataforma plataforma : plataformas.values()) {
+            // Verifica si el elemento es una instancia de Pelicula
             if (plataforma instanceof Pelicula) {
-                peliculas.add((Pelicula) plataforma);
+                peliculas.add((Pelicula) plataforma); // Añade la película a la lista
             }
         }
 
+        // Muestra las opciones de ordenamiento al usuario
+        System.out.println("\nSeleccione el tipo de ordenamiento:");
         System.out.println("1. Ordenar por Selección");
         System.out.println("2. Ordenar por Inserción");
-        System.out.print("Seleccione el tipo de ordenamiento: ");
-        Scanner scanner = new Scanner(System.in);
-        int opcion = scanner.nextInt();
+        System.out.print("Ingrese su opción: ");
+        Scanner scanner = new Scanner(System.in); // Crea un objeto Scanner para leer la entrada del usuario
+        int opcion = scanner.nextInt(); // Lee la opción del usuario
 
-        System.out.println("Películas antes de ordenar:");
+        // Muestra la información de las películas antes de ordenar
+        System.out.println("\nPelículas antes de ordenar:");
         for (Pelicula pelicula : peliculas) {
-            pelicula.mostrarInfo();
+            pelicula.mostrarInfo(); // Muestra la información de cada película
+            System.out.println("-".repeat(40)); // Línea de separación
         }
 
-        // Aplicar el ordenamiento seleccionado
+        // Aplica el método de ordenamiento seleccionado por el usuario
         switch (opcion) {
             case 1:
-                ordenarPorSeleccion(peliculas);
+                ordenarPorSeleccion(peliculas); // Ordena por selección si el usuario elige la opción 1
                 break;
             case 2:
-                ordenarPorInsercion(peliculas);
+                ordenarPorInsercion(peliculas); // Ordena por inserción si el usuario elige la opción 2
                 break;
             default:
                 System.out.println("Opción inválida. Se usará ordenamiento por selección por defecto.");
-                ordenarPorSeleccion(peliculas);
+                ordenarPorSeleccion(peliculas); // Usa selección por defecto si la opción es inválida
                 break;
         }
 
-        System.out.println("Películas después de ordenar:");
+        // Muestra la información de las películas después de ordenar
+        System.out.println("\nPelículas después de ordenar:");
         for (Pelicula pelicula : peliculas) {
-            pelicula.mostrarInfo();
-            System.out.println("---------------------------------------");
+            pelicula.mostrarInfo(); // Muestra la información de cada película después de ordenar
+            System.out.println("-".repeat(40)); // Línea de separación
         }
-     }
-    // Muestra información de todas las series, ordenadas por duración
-        private void mostrarSeries() {
-        System.out.println("\n--- Información de Series ---");
-        List<Serie> series = new ArrayList<>();
+    }
+
+    // Método para mostrar la información de todas las series, ordenadas por duración
+    private void mostrarSeries() {
+        System.out.println("\n" + "-".repeat(40)); // Línea superior
+        System.out.println("    ** Información de Series **    "); // Título centralizado
+        System.out.println("-".repeat(40)); // Línea inferior
+
+        List<Serie> series = new ArrayList<>(); // Crea una lista para almacenar las series
+
+        // Recorre todos los elementos de la colección 'plataformas'
         for (Plataforma plataforma : plataformas.values()) {
+            // Verifica si el elemento es una instancia de Serie
             if (plataforma instanceof Serie) {
-                series.add((Serie) plataforma);
+                series.add((Serie) plataforma); // Añade la serie a la lista
             }
         }
 
+        // Muestra las opciones de ordenamiento al usuario
+        System.out.println("\nSeleccione el tipo de ordenamiento:");
         System.out.println("1. Ordenar por Selección");
         System.out.println("2. Ordenar por Inserción");
-        System.out.print("Seleccione el tipo de ordenamiento: ");
-        Scanner scanner = new Scanner(System.in);
-        int opcion = scanner.nextInt();
+        System.out.print("Ingrese su opción: ");
+        Scanner scanner = new Scanner(System.in); // Crea un objeto Scanner para leer la entrada del usuario
+        int opcion = scanner.nextInt(); // Lee la opción del usuario
 
-        System.out.println("Series antes de ordenar:");
+        // Muestra la información de las series antes de ordenar
+        System.out.println("\nSeries antes de ordenar:");
         for (Serie serie : series) {
-            serie.mostrarInfo();
+            serie.mostrarInfo(); // Muestra la información de cada serie
+            System.out.println("-".repeat(40)); // Línea de separación
         }
 
-        // Aplicar el ordenamiento seleccionado
+        // Aplica el método de ordenamiento seleccionado por el usuario
         switch (opcion) {
             case 1:
-                ordenarPorSeleccion(series);
+                ordenarPorSeleccion(series); // Ordena por selección si el usuario elige la opción 1
                 break;
             case 2:
-                ordenarPorInsercion(series);
+                ordenarPorInsercion(series); // Ordena por inserción si el usuario elige la opción 2
                 break;
             default:
                 System.out.println("Opción inválida. Se usará ordenamiento por selección por defecto.");
-                ordenarPorSeleccion(series);
+                ordenarPorSeleccion(series); // Usa selección por defecto si la opción es inválida
                 break;
         }
 
-        System.out.println("Series después de ordenar:");
+        // Muestra la información de las series después de ordenar
+        System.out.println("\nSeries después de ordenar:");
         for (Serie serie : series) {
-            serie.mostrarInfo();
-            System.out.println("---------------------------------------");
+            serie.mostrarInfo(); // Muestra la información de cada serie después de ordenar
+            System.out.println("-".repeat(40)); // Línea de separación
         }
     }
 
+    // Método para mostrar la información de todas las canciones, ordenadas por duración
     private void mostrarCanciones() {
-        System.out.println("\n--- Información de Canciones ---");
-        List<Cancion> canciones = new ArrayList<>();
+        System.out.println("\n" + "-".repeat(40)); // Línea superior
+        System.out.println("  ** Información de Canciones **  "); // Título centralizado
+        System.out.println("-".repeat(40)); // Línea inferior
+
+        List<Cancion> canciones = new ArrayList<>(); // Crea una lista para almacenar las canciones
+
+        // Recorre todos los elementos de la colección 'plataformas'
         for (Plataforma plataforma : plataformas.values()) {
+            // Verifica si el elemento es una instancia de Cancion
             if (plataforma instanceof Cancion) {
-                canciones.add((Cancion) plataforma);
+                canciones.add((Cancion) plataforma); // Añade la canción a la lista
             }
         }
 
+        // Muestra las opciones de ordenamiento al usuario
+        System.out.println("\nSeleccione el tipo de ordenamiento:");
         System.out.println("1. Ordenar por Selección");
         System.out.println("2. Ordenar por Inserción");
-        System.out.print("Seleccione el tipo de ordenamiento: ");
-        Scanner scanner = new Scanner(System.in);
-        int opcion = scanner.nextInt();
+        System.out.print("Ingrese su opción: ");
+        Scanner scanner = new Scanner(System.in); // Crea un objeto Scanner para leer la entrada del usuario
+        int opcion = scanner.nextInt(); // Lee la opción del usuario
 
-        System.out.println("Canciones antes de ordenar:");
+        // Muestra la información de las canciones antes de ordenar
+        System.out.println("\nCanciones antes de ordenar:");
         for (Cancion cancion : canciones) {
-            cancion.mostrarInfo();
+            cancion.mostrarInfo(); // Muestra la información de cada canción
+            System.out.println("-".repeat(40)); // Línea de separación
         }
 
-        // Aplicar el ordenamiento seleccionado
+        // Aplica el método de ordenamiento seleccionado por el usuario
         switch (opcion) {
             case 1:
-                ordenarPorSeleccion(canciones);
+                ordenarPorSeleccion(canciones); // Ordena por selección si el usuario elige la opción 1
                 break;
             case 2:
-                ordenarPorInsercion(canciones);
+                ordenarPorInsercion(canciones); // Ordena por inserción si el usuario elige la opción 2
                 break;
             default:
                 System.out.println("Opción inválida. Se usará ordenamiento por selección por defecto.");
-                ordenarPorSeleccion(canciones);
+                ordenarPorSeleccion(canciones); // Usa selección por defecto si la opción es inválida
                 break;
         }
 
-        System.out.println("Canciones después de ordenar:");
+        // Muestra la información de las canciones después de ordenar
+        System.out.println("\nCanciones después de ordenar:");
         for (Cancion cancion : canciones) {
-            cancion.mostrarInfo();
-            System.out.println("---------------------------------------");
+            cancion.mostrarInfo(); // Muestra la información de cada canción después de ordenar
+            System.out.println("-".repeat(40)); // Línea de separación
         }
     }
 
+    // Método para mostrar la información de todos los efectos de sonido, ordenados por duración
     private void mostrarEfectosDeSonido() {
-        System.out.println("\n--- Información de Efectos de Sonido ---");
-        List<EfectoDeSonido> efectos = new ArrayList<>();
+        System.out.println("\n" + "-".repeat(40)); // Línea superior
+        System.out.println("** Información de Efectos de Sonido **"); // Título centralizado
+        System.out.println("-".repeat(40)); // Línea inferior
+
+        List<EfectoDeSonido> efectos = new ArrayList<>(); // Crea una lista para almacenar los efectos de sonido
+
+        // Recorre todos los elementos de la colección 'plataformas'
         for (Plataforma plataforma : plataformas.values()) {
+            // Verifica si el elemento es una instancia de EfectoDeSonido
             if (plataforma instanceof EfectoDeSonido) {
-                efectos.add((EfectoDeSonido) plataforma);
+                efectos.add((EfectoDeSonido) plataforma); // Añade el efecto de sonido a la lista
             }
         }
 
+        // Muestra las opciones de ordenamiento al usuario
+        System.out.println("\nSeleccione el tipo de ordenamiento:");
         System.out.println("1. Ordenar por Selección");
         System.out.println("2. Ordenar por Inserción");
-        System.out.print("Seleccione el tipo de ordenamiento: ");
-        Scanner scanner = new Scanner(System.in);
-        int opcion = scanner.nextInt();
+        System.out.print("Ingrese su opción: ");
+        Scanner scanner = new Scanner(System.in); // Crea un objeto Scanner para leer la entrada del usuario
+        int opcion = scanner.nextInt(); // Lee la opción del usuario
 
-        System.out.println("Efectos de sonido antes de ordenar:");
+        // Muestra la información de los efectos de sonido antes de ordenar
+        System.out.println("\nEfectos de sonido antes de ordenar:");
         for (EfectoDeSonido efecto : efectos) {
-            efecto.mostrarInfo();
+            efecto.mostrarInfo(); // Muestra la información de cada efecto de sonido
+            System.out.println("-".repeat(40)); // Línea de separación
         }
 
-        // Aplicar el ordenamiento seleccionado
+        // Aplica el método de ordenamiento seleccionado por el usuario
         switch (opcion) {
             case 1:
-                ordenarPorSeleccion(efectos);
+                ordenarPorSeleccion(efectos); // Ordena por selección si el usuario elige la opción 1
                 break;
             case 2:
-                ordenarPorInsercion(efectos);
+                ordenarPorInsercion(efectos); // Ordena por inserción si el usuario elige la opción 2
                 break;
             default:
                 System.out.println("Opción inválida. Se usará ordenamiento por selección por defecto.");
-                ordenarPorSeleccion(efectos);
+                ordenarPorSeleccion(efectos); // Usa selección por defecto si la opción es inválida
                 break;
         }
 
-        System.out.println("Efectos de sonido después de ordenar:");
+        // Muestra la información de los efectos de sonido después de ordenar
+        System.out.println("\nEfectos de sonido después de ordenar:");
         for (EfectoDeSonido efecto : efectos) {
-            efecto.mostrarInfo();
-            System.out.println("---------------------------------------");
+            efecto.mostrarInfo(); // Muestra la información de cada efecto de sonido después de ordenar
+            System.out.println("-".repeat(40)); // Línea de separación
         }
     }
+
     
     // Obtiene una lista de todos los contenidos de tipo Video disponibles en la plataforma
     public List<Video> obtenerContenidosDisponibles() {

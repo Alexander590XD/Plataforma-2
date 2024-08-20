@@ -12,17 +12,16 @@ import java.util.Scanner;
  */
 public class EfectoDeSonido extends Audio {
 
-    private String tipo;            // Tipo de efecto de sonido
-    private String descripcion;     // Descripción del efecto de sonido
+ // Atributos específicos del efecto de sonido
+    private String tipo;         // Tipo de efecto de sonido
+    private String descripcion;  // Descripción del efecto
 
-    /**
-     * Constructor vacío que solicita datos al usuario.
-     */
+    // Constructor por defecto
     public EfectoDeSonido() {
-        super();  // Llama al constructor de Audio
+        super();  // Llama al constructor de la clase base Audio
         Scanner scanner = new Scanner(System.in);
 
-        // Solicita información específica para el efecto de sonido
+        // Solicita información adicional al usuario
         System.out.print("Tipo de efecto: ");
         this.tipo = scanner.nextLine();
 
@@ -30,19 +29,16 @@ public class EfectoDeSonido extends Audio {
         this.descripcion = scanner.nextLine();
     }
 
-    /**
-     * Constructor con parámetros para inicializar un efecto de sonido.
-     */
-    public EfectoDeSonido(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechaLanzamiento,
+    // Constructor con parámetros para inicializar todos los atributos
+    public EfectoDeSonido(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechalanzamiento,
                           String artista, String album, String genero, String compositor, String discografica, String letra,
                           String tipo, String descripcion) {
-        super(nombre, idElemento, titulo, duracion, calidad, fechaLanzamiento, artista, album, genero, compositor, discografica, letra);
+        super(nombre, idElemento, titulo, duracion, calidad, fechalanzamiento, artista, album, genero, compositor, discografica, letra);
         this.tipo = tipo;
         this.descripcion = descripcion;
     }
 
-    // Getters y setters para los atributos
-
+    // Getters y Setters para los atributos
     public String getTipo() {
         return tipo;
     }
@@ -59,19 +55,19 @@ public class EfectoDeSonido extends Audio {
         this.descripcion = descripcion;
     }
 
-    /**
-     * Muestra la información del efecto de sonido.
-     * Llama al método mostrarInfo() de la clase Audio.
-     */
+    // Método para reproducir el efecto de sonido
+    public void reproducirEfecto() {
+        System.out.println("Reproduciendo efecto de sonido: " + getTitulo());
+    }
+
+    // Método para mostrar información del efecto de sonido
     public void mostrarInfoEfecto() {
-        super.mostrarInfo(); // Muestra la información básica del audio
+        super.mostrarInfo(); // Llama al método mostrarInfo() de la clase Audio
         System.out.println("Tipo de efecto: " + tipo);
         System.out.println("Descripción: " + descripcion);
     }
-    
-    /**
-     * Permite modificar la información del efecto de sonido.
-     */
+
+    // Método para modificar información del efecto de sonido
     public void modificarInformacion() {
         Scanner scanner = new Scanner(System.in);
 

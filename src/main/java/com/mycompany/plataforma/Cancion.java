@@ -12,39 +12,35 @@ import java.util.Scanner;
  */
 public class Cancion extends Audio {
 
-    private int numeroTrack;        // Número de track en el álbum
-    private boolean esExplicita;    // Indica si la canción es explícita
+    // Atributos específicos de la canción
+    private int numeroTrack;    // Número de la pista en el álbum
+    private boolean esExplicita; // Indica si la canción tiene contenido explícito
 
-    /**
-     * Constructor vacío que solicita datos al usuario.
-     */
+    // Constructor por defecto
     public Cancion() {
-        super();  // Llama al constructor de Audio
+        super();  // Llama al constructor de la clase base Audio
         Scanner scanner = new Scanner(System.in);
 
-        // Solicita información específica para la canción
+        // Solicita información adicional al usuario
         System.out.print("Número de Track: ");
         this.numeroTrack = scanner.nextInt();
-        scanner.nextLine();
-        
+        scanner.nextLine(); // Limpiar el buffer
+
         System.out.print("¿Es explícita? (true/false): ");
         this.esExplicita = scanner.nextBoolean();
-        scanner.nextLine();
+        scanner.nextLine(); // Limpiar el buffer
     }
 
-    /**
-     * Constructor con parámetros para inicializar una canción.
-     */
-    public Cancion(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechaLanzamiento,
+    // Constructor con parámetros para inicializar todos los atributos
+    public Cancion(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechalanzamiento,
                    String artista, String album, String genero, String compositor, String discografica, String letra,
                    int numeroTrack, boolean esExplicita) {
-        super(nombre, idElemento, titulo, duracion, calidad, fechaLanzamiento, artista, album, genero, compositor, discografica, letra);
+        super(nombre, idElemento, titulo, duracion, calidad, fechalanzamiento, artista, album, genero, compositor, discografica, letra);
         this.numeroTrack = numeroTrack;
         this.esExplicita = esExplicita;
     }
-    
-    // Getters y setters para los atributos
 
+    // Getters y Setters para los atributos
     public int getNumeroTrack() {
         return numeroTrack;
     }
@@ -61,28 +57,33 @@ public class Cancion extends Audio {
         this.esExplicita = esExplicita;
     }
 
-    /**
-     * Muestra la información de la canción.
-     * Llama al método mostrarInfo() de la clase Audio.
-     */
+    // Método para reproducir la canción
+    public void reproducir() {
+        System.out.println("Reproduciendo " + getTitulo());
+    }
+
+    // Método para agregar la canción a una playlist
+    public void agregarAPlaylist(String playlist) {
+        System.out.println(getTitulo() + " agregada a la playlist: " + playlist);
+    }
+
+    // Método para mostrar información de la canción
     public void mostrarInfoCancion() {
-        super.mostrarInfo(); // Muestra la información básica del audio
+        super.mostrarInfo(); // Llama al método mostrarInfo() de la clase Audio
         System.out.println("Número de Track: " + numeroTrack);
         System.out.println("Es explícita: " + (esExplicita ? "Sí" : "No"));
     }
-    
-    /**
-     * Permite modificar la información de la canción.
-     */
+
+    // Método para modificar información de la canción
     public void modificarInformacion() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Ingrese nuevo número de track (actual: " + numeroTrack + "): ");
         this.numeroTrack = scanner.nextInt();
-        scanner.nextLine();
-        
+        scanner.nextLine(); // Limpiar el buffer
+
         System.out.print("¿Es explícita? (true/false, actual: " + (esExplicita ? "Sí" : "No") + "): ");
         this.esExplicita = scanner.nextBoolean();
-        scanner.nextLine();
+        scanner.nextLine(); // Limpiar el buffer
     }
 }

@@ -20,7 +20,7 @@ public abstract class Plataforma{
     public Plataforma() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Director: ");
+        System.out.print("Plataforma: ");
         this.nombre = scanner.nextLine();
     }
 

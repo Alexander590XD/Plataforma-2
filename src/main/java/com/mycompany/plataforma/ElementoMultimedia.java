@@ -15,39 +15,46 @@ import java.util.stream.Stream;
  * Hereda de la clase Plataforma.
  */
 public class ElementoMultimedia extends Plataforma{
-    protected int idElemento;  // Identificador del elemento
-    protected String titulo;  // Título del elemento
-    protected int duracion;  // Duración en minutos
-    protected String calidad;  // Calidad de reproducción
-    protected LocalDate fechaLanzamiento;  // Fecha de lanzamiento
+       
+     protected int idElemento;
+    protected String titulo;
+    protected int duracion;
+    protected String calidad;
+    protected LocalDate fechalanzamiento;
 
-    /**
-     * Constructor vacío que solicita datos al usuario.
-     */
     public ElementoMultimedia() {
         super();
         Scanner scanner = new Scanner(System.in);
-        this.idElemento = promptInt(scanner, "ID de Elemento: ");
-        this.titulo = promptString(scanner, "Título del elemento: ");
-        this.duracion = promptInt(scanner, "Duración (en minutos): ");
-        this.calidad = promptString(scanner, "Calidad de reproducción: ");
-        this.fechaLanzamiento = promptDate(scanner, "Fecha de Lanzamiento (aaaa-mm-dd): ");
+
+        System.out.print("ID de Elemento: ");
+        this.idElemento = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Título del elemento: ");
+        this.titulo = scanner.nextLine();
+
+        System.out.print("Duración (en minutos): ");
+        this.duracion = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Calidad de reproducción: ");
+        this.calidad = scanner.nextLine();
+
+        System.out.print("Fecha de Lanzamiento (aaaa-mm-dd): ");
+        String fechaStr = scanner.nextLine();
+        this.fechalanzamiento = LocalDate.parse(fechaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
-    /**
-     * Constructor con parámetros para inicializar un elemento multimedia.
-     */
-    public ElementoMultimedia(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechaLanzamiento) {
+    public ElementoMultimedia(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechalanzamiento) {
         super(nombre);
         this.idElemento = idElemento;
         this.titulo = titulo;
         this.duracion = duracion;
         this.calidad = calidad;
-        this.fechaLanzamiento = fechaLanzamiento;
+        this.fechalanzamiento = fechalanzamiento;
     }
 
-    // Getters y setters para los atributos
-
+    // Getters and Setters
     public int getIdElemento() {
         return idElemento;
     }
@@ -80,46 +87,19 @@ public class ElementoMultimedia extends Plataforma{
         this.calidad = calidad;
     }
 
-    public LocalDate getFechaLanzamiento() {
-        return fechaLanzamiento;
+    public LocalDate getFechalanzamiento() {
+        return fechalanzamiento;
     }
 
-    public void setFechaLanzamiento(LocalDate fechaLanzamiento) {
-        this.fechaLanzamiento = fechaLanzamiento;
+    public void setFechalanzamiento(LocalDate fechalanzamiento) {
+        this.fechalanzamiento = fechalanzamiento;
     }
-
-    /**
-     * Implementación del método abstracto para mostrar la información del elemento multimedia.
-     */
     public void mostrarInfo() {
-        mostrarPlataforma();  // Muestra la información básica de la plataforma
+        mostrarPlataforma(); // Muestra la información básica de la plataforma
         System.out.println("ID de elemento: " + idElemento);
         System.out.println("Título del elemento: " + titulo);
         System.out.println("Duración: " + duracion + " minutos");
         System.out.println("Calidad: " + calidad);
-        System.out.println("Fecha de lanzamiento: " + fechaLanzamiento.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-    }
-
-    private int promptInt(Scanner scanner, String prompt) {
-        System.out.print(prompt);
-        return scanner.nextInt();
-    }
-    
-    private String promptString(Scanner scanner, String prompt) {
-        System.out.print(prompt);
-        scanner.nextLine();  // Consume el salto de línea pendiente
-        return scanner.nextLine();
-    }
-
-    private LocalDate promptDate(Scanner scanner, String prompt) {
-        String fechaStr = promptString(scanner, prompt);
-        return LocalDate.parse(fechaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-    }
-
-    private List<String> promptList(Scanner scanner, String prompt) {
-        String input = promptString(scanner, prompt);
-        return Stream.of(input.split(","))
-                     .map(String::trim)
-                     .collect(Collectors.toList());
+        System.out.println("Fecha de lanzamiento: " + fechalanzamiento.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
 }

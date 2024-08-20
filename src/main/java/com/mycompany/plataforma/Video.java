@@ -14,37 +14,44 @@ import java.util.stream.Stream;
  */
 public class Video extends ElementoMultimedia{
     
-   protected String director;  // Director del video
-    protected List<String> actores;  // Lista de actores
-    protected String paisOrigen;  // País de origen
-    protected List<String> subtitulos;  // Lista de subtítulos
+     protected String director;
+    protected List<String> actores;
+    protected String paisO;
+    protected List<String> subtitulos;
 
-    /**
-     * Constructor vacío que solicita datos al usuario.
-     */
     public Video() {
         super();
         Scanner scanner = new Scanner(System.in);
-        this.director = promptString(scanner, "Director: ");
-        this.actores = promptList(scanner, "Actores (separados por comas): ");
-        this.paisOrigen = promptString(scanner, "País de origen: ");
-        this.subtitulos = promptList(scanner, "Subtítulos (separados por comas): ");
+
+        System.out.print("Director: ");
+        this.director = scanner.nextLine();
+
+        System.out.print("Actores (separados por comas): ");
+        String actoresInput = scanner.nextLine();
+        this.actores = Stream.of(actoresInput.split(","))
+                             .map(String::trim)
+                             .collect(Collectors.toList());
+
+        System.out.print("País de origen: ");
+        this.paisO = scanner.nextLine();
+
+        System.out.print("Subtítulos (separados por comas): ");
+        String subtitulosInput = scanner.nextLine();
+        this.subtitulos = Stream.of(subtitulosInput.split(","))
+                                .map(String::trim)
+                                .collect(Collectors.toList());
     }
 
-    /**
-     * Constructor con parámetros para inicializar un video.
-     */
-    public Video(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechaLanzamiento,
-                 String director, List<String> actores, String paisOrigen, List<String> subtitulos) {
-        super(nombre, idElemento, titulo, duracion, calidad, fechaLanzamiento);
+    public Video(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechalanzamiento,
+                 String director, List<String> actores, String paisO, List<String> subtitulos) {
+        super(nombre, idElemento, titulo, duracion, calidad, fechalanzamiento);
         this.director = director;
         this.actores = actores;
-        this.paisOrigen = paisOrigen;
+        this.paisO = paisO;
         this.subtitulos = subtitulos;
     }
 
-    // Getters y setters para los atributos
-
+    // Getters and Setters
     public String getDirector() {
         return director;
     }
@@ -61,12 +68,12 @@ public class Video extends ElementoMultimedia{
         this.actores = actores;
     }
 
-    public String getPaisOrigen() {
-        return paisOrigen;
+    public String getPaisO() {
+        return paisO;
     }
 
-    public void setPaisOrigen(String paisOrigen) {
-        this.paisOrigen = paisOrigen;
+    public void setPaisO(String paisO) {
+        this.paisO = paisO;
     }
 
     public List<String> getSubtitulos() {
@@ -77,23 +84,12 @@ public class Video extends ElementoMultimedia{
         this.subtitulos = subtitulos;
     }
 
-    /**
-     * Implementación del método abstracto para mostrar la información del video.
-     */
     @Override
     public void mostrarInfo() {
-        super.mostrarInfo();  // Muestra la información básica del elemento multimedia
+        super.mostrarInfo(); // Muestra la información básica del elemento multimedia
         System.out.println("Director: " + director);
         System.out.println("Actores: " + String.join(", ", actores));
-        System.out.println("País de Origen: " + paisOrigen);
+        System.out.println("País de Origen: " + paisO);
         System.out.println("Subtítulos: " + String.join(", ", subtitulos));
-    }
-
-    private String promptString(Scanner scanner, String director_) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private List<String> promptList(Scanner scanner, String actores_separados_por_comas_) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

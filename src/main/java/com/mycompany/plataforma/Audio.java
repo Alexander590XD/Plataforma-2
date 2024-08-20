@@ -10,34 +10,43 @@ import java.util.Scanner;
  * @author pato4
  */
 public class Audio extends ElementoMultimedia{
-    
-     protected String artista;  // Artista del audio
-    protected String album;  // Nombre del álbum
-    protected String genero;  // Género del audio
-    protected String compositor;  // Compositor del audio
-    protected String discografica;  // Discográfica del audio
-    private String letra;  // Letra de la canción
+   // Atributos específicos del audio
+    protected String artista;          // Nombre del artista
+    protected String album;            // Nombre del álbum
+    protected String genero;           // Género musical
+    protected String compositor;       // Compositor de la pieza
+    protected String discografica;     // Discográfica que ha publicado el audio
+    private String letra;              // Letra de la canción (si aplica)
 
-    /**
-     * Constructor vacío que solicita datos al usuario.
-     */
+    // Constructor por defecto
     public Audio() {
-        super();
+        super();  // Llama al constructor de la clase base ElementoMultimedia
         Scanner scanner = new Scanner(System.in);
-        this.artista = promptString(scanner, "Artista: ");
-        this.album = promptString(scanner, "Nombre del álbum: ");
-        this.genero = promptString(scanner, "Género: ");
-        this.compositor = promptString(scanner, "Compositor: ");
-        this.discografica = promptString(scanner, "Discográfica: ");
-        this.letra = promptString(scanner, "Letra: ");
+
+        // Solicita información al usuario
+        System.out.print("Artista: ");
+        this.artista = scanner.nextLine();
+
+        System.out.print("Nombre del álbum: ");
+        this.album = scanner.nextLine();
+
+        System.out.print("Género: ");
+        this.genero = scanner.nextLine();
+
+        System.out.print("Compositor: ");
+        this.compositor = scanner.nextLine();
+
+        System.out.print("Discográfica: ");
+        this.discografica = scanner.nextLine();
+
+        System.out.print("Letra: ");
+        this.letra = scanner.nextLine();
     }
 
-    /**
-     * Constructor con parámetros para inicializar un audio.
-    */
-    public Audio(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechaLanzamiento,
+    // Constructor con parámetros para inicializar todos los atributos
+    public Audio(String nombre, int idElemento, String titulo, int duracion, String calidad, LocalDate fechalanzamiento,
                  String artista, String album, String genero, String compositor, String discografica, String letra) {
-        super(nombre, idElemento, titulo, duracion, calidad, fechaLanzamiento);
+        super(nombre, idElemento, titulo, duracion, calidad, fechalanzamiento); // Llama al constructor de la clase base
         this.artista = artista;
         this.album = album;
         this.genero = genero;
@@ -46,8 +55,7 @@ public class Audio extends ElementoMultimedia{
         this.letra = letra;
     }
 
-    // Getters y setters para los atributos
-
+    // Getters y Setters para los atributos
     public String getArtista() {
         return artista;
     }
@@ -96,22 +104,14 @@ public class Audio extends ElementoMultimedia{
         this.letra = letra;
     }
 
-    /**
-     * Implementación del método abstracto para mostrar la información del audio.
-     */
+    // Método para mostrar información del audio
     @Override
     public void mostrarInfo() {
-        super.mostrarInfo();  // Muestra la información básica del elemento multimedia
+        super.mostrarInfo(); // Muestra la información básica del elemento multimedia
         System.out.println("Artista: " + artista);
         System.out.println("Álbum: " + album);
         System.out.println("Género: " + genero);
         System.out.println("Compositor: " + compositor);
         System.out.println("Discográfica: " + discografica);
-    }
-
-    private String promptString(Scanner scanner, String prompt) {
-        System.out.print(prompt);
-        scanner.nextLine();  // Consume el salto de línea pendiente
-        return scanner.nextLine();
     }
 }
