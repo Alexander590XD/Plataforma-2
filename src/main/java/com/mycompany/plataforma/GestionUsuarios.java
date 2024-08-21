@@ -152,7 +152,7 @@ public class GestionUsuarios {
             System.out.println("3. Eliminar usuario");
             System.out.println("4. Mostrar todos los usuarios");
             System.out.println("5. Salir");
-            System.out.print("Ingrese una opción: ");
+            System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
             scanner.nextLine(); // Limpiar buffer
 
@@ -161,12 +161,12 @@ public class GestionUsuarios {
                     registrarNuevoUsuario();
                     break;
                 case 2:
-                    System.out.print("Ingrese el nombre del usuario a modificar: ");
+                    System.out.print("Nombre del usuario a modificar: ");
                     String nombreModificar = scanner.nextLine();
                     modificarUsuario(nombreModificar);
                     break;
                 case 3:
-                    System.out.print("Ingrese el nombre del usuario a eliminar: ");
+                    System.out.print("Nombre del usuario a eliminar: ");
                     String nombreEliminar = scanner.nextLine();
                     eliminarUsuario(nombreEliminar);
                     break;
@@ -177,7 +177,7 @@ public class GestionUsuarios {
                     System.out.println("Saliendo...");
                     break;
                 default:
-                    System.out.println("Opción inválida. Por favor, ingrese una opción válida.");
+                    System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
             }
         } while (opcion != 5);
     }

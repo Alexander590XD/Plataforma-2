@@ -36,10 +36,10 @@ public class Pprincipal {
                     gestionarAnalista(scanner, gestionAnalistas);
                     break;
                 case 4:
-                    System.out.println("Saliendo del programa...");
+                    System.out.println("Saliendo del programa. Gracias por su visita.");
                     return;
                 default:
-                    System.out.println("Opción inválida. Por favor, ingrese una opción válida.");
+                    System.out.println("Opción no válida. Por favor, seleccione una opción correcta.");
             }
         } while (opcion != 4);
 
@@ -52,7 +52,7 @@ public class Pprincipal {
         System.out.println("2. Usuario");
         System.out.println("3. Analista de Marketing");
         System.out.println("4. Salir");
-        System.out.print("Ingrese una opción: ");
+        System.out.print("Seleccione una opción: ");
     }
 
     private static void mostrarMenuSecundario(Scanner scanner) {
@@ -65,7 +65,7 @@ public class Pprincipal {
             System.out.println("1. Plataforma");
             System.out.println("2. Usuarios");
             System.out.println("3. Salir");
-            System.out.print("Ingrese una opción: ");
+            System.out.print("Seleccione una opción: ");
             ad = scanner.nextInt();
             scanner.nextLine(); // Consumir el salto de línea
 
@@ -77,46 +77,46 @@ public class Pprincipal {
                     gestionarAdministrador2(scanner, gestionUsuarios);
                     break;
                 case 3:
-                    System.out.println("Saliendo del menú de gestión...");
+                    System.out.println("Saliendo del menú de gestión. Gracias por su atención.");
                     break;
                 default:
-                    System.out.println("Opción inválida. Por favor, ingrese una opción válida.");
+                    System.out.println("Opción no válida. Por favor, seleccione una opción correcta.");
             }
         } while (ad != 3);
     }
 
     private static void gestionarAdministrador(Scanner scanner, GestionPlataforma gestionPlataforma) {
-        System.out.print("Ingrese la contraseña de administrador: ");
+        System.out.print("Por favor, ingrese la contraseña de administrador: ");
         String contrasena = scanner.nextLine();
 
         if ("admin123".equals(contrasena)) {
             gestionPlataforma.mostrarMenuPrincipal(scanner);
         } else {
-            System.out.println("Contraseña incorrecta. No tiene acceso a esta funcionalidad.");
+            System.out.println("Contraseña incorrecta. Acceso denegado.");
         }
     }
 
     private static void gestionarAdministrador2(Scanner scanner, GestionUsuarios gestionUsuarios) {
-        System.out.print("Ingrese la contraseña de administrador: ");
+        System.out.print("Por favor, ingrese la contraseña de administrador: ");
         String contrasena = scanner.nextLine();
 
         if ("admin123".equals(contrasena)) {
             gestionUsuarios.mostrarMenu();
         } else {
-            System.out.println("Contraseña incorrecta. No tiene acceso a esta funcionalidad.");
+            System.out.println("Contraseña incorrecta. Acceso denegado.");
         }
     }
 
     private static void gestionarAnalista(Scanner scanner, GestionAnalistas gestionAnalistas) {
         System.out.println("Registro de Analista de Marketing:");
-        System.out.print("Ingrese el nombre: ");
+        System.out.print("Ingrese el nombre del analista: ");
         String nombre = scanner.nextLine();
-        System.out.print("Ingrese la especialidad: ");
+        System.out.print("Ingrese la especialidad del analista: ");
         String especialidad = scanner.nextLine();
-        System.out.print("Ingrese los años de experiencia: ");
+        System.out.print("Ingrese los años de experiencia del analista: ");
         int aniosExperiencia = scanner.nextInt();
         scanner.nextLine(); // Consumir el salto de línea
-        System.out.print("Ingrese la hora de registro (formato HH:mm) o presione Enter para usar la hora actual: ");
+        System.out.print("Ingrese la hora de registro (formato HH:mm) o presione Enter para utilizar la hora actual: ");
         String horaRegistro = scanner.nextLine();
 
         Tiempo tiempoRegistro = new Tiempo();
@@ -126,6 +126,7 @@ public class Pprincipal {
             tiempoRegistro.capturarHora();
         }
 
+        // Implementa el analista usando una clase anónima
         AnalistaMarketing analista = new AnalistaMarketing(nombre, especialidad, aniosExperiencia, tiempoRegistro) {
             @Override
             public void mostrarInformacion() {
@@ -154,12 +155,17 @@ public class Pprincipal {
             @Override
             public void mostrarCampañasColaboradas() {
                 imprimirCampanasColaboradas();
-            }
+            } 
         };
 
+        // Agrega el analista a la gestión
         gestionAnalistas.agregarAnalista(analista);
-        System.out.println("Analista registrado exitosamente.");
+        System.out.println("El analista ha sido registrado exitosamente.");
 
+        // Mostrar el mensaje de bienvenida
+        analista.mostrarMensajeBienvenida();
+
+        // Mostrar el menú principal
         gestionAnalistas.mostrarMenuPrincipal(scanner);
     }
 
@@ -168,14 +174,14 @@ public class Pprincipal {
         boolean sesionIniciada = false;
 
         while (!sesionIniciada) {
-            System.out.print("Ingrese la contraseña para iniciar sesión: ");
+            System.out.print("Por favor, ingrese la contraseña para iniciar sesión: ");
             String contrasena = scanner.nextLine();
             if (usuario.iniciarSesion(contrasena)) {
                 System.out.println("Inicio de sesión exitoso.");
                 manejarMenuUsuario(scanner, usuario);
                 sesionIniciada = true;
             } else {
-                System.out.println("Contraseña incorrecta. Intente nuevamente.");
+                System.out.println("Contraseña incorrecta. Por favor, intente nuevamente.");
             }
         }
     }
@@ -194,7 +200,7 @@ public class Pprincipal {
             System.out.println("7. Modificar cuenta");
             System.out.println("8. Eliminar cuenta");
             System.out.println("9. Cerrar sesión");
-            System.out.print("Ingrese una opción: ");
+            System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
             scanner.nextLine(); // Consumir el salto de línea
 
@@ -203,13 +209,13 @@ public class Pprincipal {
                     usuario.mostrarInformacion();
                     break;
                 case 2:
-                    System.out.print("Ingrese el nombre de la nueva lista de reproducción: ");
+                    System.out.print("Por favor, ingrese el nombre de la nueva lista de reproducción: ");
                     String nombreLista = scanner.nextLine();
                     usuario.crearListaReproduccion(nombreLista);
-                    System.out.println("Lista de reproducción creada.");
+                    System.out.println("Lista de reproducción creada con éxito.");
                     break;
                 case 3:
-                    System.out.print("Ingrese el nombre de la lista de reproducción: ");
+                    System.out.print("Por favor, ingrese el nombre de la lista de reproducción: ");
                     String nombreListaAgregar = scanner.nextLine();
 
                     // Obtener los contenidos disponibles
@@ -226,22 +232,22 @@ public class Pprincipal {
                     if (indiceContenido >= 0 && indiceContenido < contenidosDisponibles.size()) {
                         Video contenidoAgregar = contenidosDisponibles.get(indiceContenido);
                         usuario.agregarContenidoALista(nombreListaAgregar, contenidoAgregar);
-                        System.out.println("Contenido agregado a la lista.");
+                        System.out.println("Contenido agregado a la lista con éxito.");
                     } else {
-                        System.out.println("Contenido seleccionado inválido.");
+                        System.out.println("Número de contenido no válido.");
                     }
                     break;
                 case 4:
-                    System.out.print("Ingrese el contenido para marcar como favorito: ");
+                    System.out.print("Por favor, ingrese el contenido para marcar como favorito: ");
                     String contenidoFavorito = scanner.nextLine();
                     usuario.agregarFavorito(contenidoFavorito);
-                    System.out.println("Contenido marcado como favorito.");
+                    System.out.println("Contenido marcado como favorito exitosamente.");
                     break;
                 case 5:
-                    System.out.print("Ingrese el contenido para eliminar de favoritos: ");
+                    System.out.print("Por favor, ingrese el contenido para eliminar de favoritos: ");
                     String contenidoEliminar = scanner.nextLine();
                     usuario.eliminarFavorito(contenidoEliminar);
-                    System.out.println("Contenido eliminado de favoritos.");
+                    System.out.println("Contenido eliminado de favoritos exitosamente.");
                     break;
                 case 6:
                     usuario.recomendaciones();
@@ -253,10 +259,10 @@ public class Pprincipal {
                     usuario.eliminarCuenta();
                     break;
                 case 9:
-                    System.out.println("Cerrando sesión...");
+                    System.out.println("Cerrando sesión. Gracias por su visita.");
                     break;
                 default:
-                    System.out.println("Opción inválida. Por favor, ingrese una opción válida.");
+                    System.out.println("Opción no válida. Por favor, seleccione una opción correcta.");
             }
         } while (opcion != 9);
     }

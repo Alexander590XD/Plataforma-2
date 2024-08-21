@@ -49,7 +49,7 @@ public class GestionPlataforma {
             System.out.println("6. Mostrar Información");
             System.out.println("7. Eliminar Información");
             System.out.println("8. Salir");
-            System.out.print("Ingrese una opción: ");
+            System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
             scanner.nextLine(); // Limpia el buffer del escáner
             switch (opcion) {
@@ -78,7 +78,7 @@ public class GestionPlataforma {
                     System.out.println("Saliendo del programa...");
                     break; 
                 default:
-                    System.out.println("Opción inválida. Por favor, ingrese una opción válida.");
+                    System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
             }
         } while (opcion != 8); // Continúa hasta que se elija la opción de salir (8)
         return opcion;
@@ -86,7 +86,7 @@ public class GestionPlataforma {
 
     // Método que valida la contraseña del administrador para acceder a funcionalidades restrictivas
     private boolean validarContraseña(Scanner scanner) {
-        System.out.print("Ingrese la contraseña: ");
+        System.out.print("Clave: ");
         String contrasena = scanner.nextLine();
         if (ADMIN_PASSWORD.equals(contrasena)) {
             return true; // Contraseña correcta, permite el acceso
@@ -136,7 +136,7 @@ public class GestionPlataforma {
         System.out.println("3. Modificar Canción");
         System.out.println("4. Modificar Efecto de Sonido");
         System.out.println("5. Salir");
-        System.out.print("Ingrese una opción: ");
+        System.out.print("Seleccione una opción: ");
         int opcion = scanner.nextInt();
         scanner.nextLine(); // Limpia el buffer del escáner
         switch (opcion) {
@@ -156,13 +156,13 @@ public class GestionPlataforma {
                 System.out.println("Regresando al menú principal...");
                 break;
             default:
-                System.out.println("Opción inválida. Por favor, ingrese una opción válida.");
+                System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
         }
     }
 
     // Modifica un elemento específico (película, serie, canción o efecto de sonido) dado su tipo
     private void modificarElemento(Class<?> tipo, Scanner scanner) {
-        System.out.print("Ingrese el ID del elemento a modificar: ");
+        System.out.print("ID del elemento a modificar: ");
         int id = scanner.nextInt();
         scanner.nextLine(); // Limpia el buffer del escáner
         Plataforma plataforma = plataformas.get(id); // Obtiene el elemento del mapa usando el ID
@@ -195,7 +195,7 @@ public class GestionPlataforma {
             System.out.println("3. Mostrar Canciones");
             System.out.println("4. Mostrar Efectos de Sonido");
             System.out.println("5. Salir");
-            System.out.print("Ingrese una opción: ");
+            System.out.print("Seleccione una opción: ");
             opcionMostrar = scanner.nextInt();
             scanner.nextLine(); // Limpia el buffer del escáner
             switch (opcionMostrar) {
@@ -228,7 +228,7 @@ public class GestionPlataforma {
         System.out.println("3. Eliminar Canciones");
         System.out.println("4. Eliminar Efectos de Sonido");
         System.out.println("5. Salir");
-        System.out.print("Ingrese una opción: ");
+        System.out.print("Seleccione una opción: ");
         int opcionEliminar = scanner.nextInt();
         scanner.nextLine(); // Limpia el buffer del escáner
         switch (opcionEliminar) {
@@ -254,7 +254,7 @@ public class GestionPlataforma {
 
     // Elimina un elemento específico dado su tipo
     private void eliminarElementos(Class<?> tipo, Scanner scanner) {
-        System.out.print("Ingrese el ID del elemento a eliminar: ");
+        System.out.print("ID del elemento a eliminar: ");
         int id = scanner.nextInt();
         scanner.nextLine(); // Limpia el buffer del escáner
         if (plataformas.remove(id) != null) { // Intenta eliminar el elemento del mapa usando el ID como clave
@@ -317,7 +317,7 @@ public class GestionPlataforma {
         System.out.println("\nSeleccione el tipo de ordenamiento:");
         System.out.println("1. Ordenar por Selección");
         System.out.println("2. Ordenar por Inserción");
-        System.out.print("Ingrese su opción: ");
+        System.out.print("Seleccione su opción: ");
         Scanner scanner = new Scanner(System.in); // Crea un objeto Scanner para leer la entrada del usuario
         int opcion = scanner.nextInt(); // Lee la opción del usuario
 
@@ -370,7 +370,7 @@ public class GestionPlataforma {
         System.out.println("\nSeleccione el tipo de ordenamiento:");
         System.out.println("1. Ordenar por Selección");
         System.out.println("2. Ordenar por Inserción");
-        System.out.print("Ingrese su opción: ");
+        System.out.print("Seleccione su opción: ");
         Scanner scanner = new Scanner(System.in); // Crea un objeto Scanner para leer la entrada del usuario
         int opcion = scanner.nextInt(); // Lee la opción del usuario
 
@@ -423,7 +423,7 @@ public class GestionPlataforma {
         System.out.println("\nSeleccione el tipo de ordenamiento:");
         System.out.println("1. Ordenar por Selección");
         System.out.println("2. Ordenar por Inserción");
-        System.out.print("Ingrese su opción: ");
+        System.out.print("Seleccione su opción: ");
         Scanner scanner = new Scanner(System.in); // Crea un objeto Scanner para leer la entrada del usuario
         int opcion = scanner.nextInt(); // Lee la opción del usuario
 
@@ -476,7 +476,7 @@ public class GestionPlataforma {
         System.out.println("\nSeleccione el tipo de ordenamiento:");
         System.out.println("1. Ordenar por Selección");
         System.out.println("2. Ordenar por Inserción");
-        System.out.print("Ingrese su opción: ");
+        System.out.print("Seleccione su opción: ");
         Scanner scanner = new Scanner(System.in); // Crea un objeto Scanner para leer la entrada del usuario
         int opcion = scanner.nextInt(); // Lee la opción del usuario
 

@@ -55,11 +55,6 @@ public class EfectoDeSonido extends Audio {
         this.descripcion = descripcion;
     }
 
-    // Método para reproducir el efecto de sonido
-    public void reproducirEfecto() {
-        System.out.println("Reproduciendo efecto de sonido: " + getTitulo());
-    }
-
     // Método para mostrar información del efecto de sonido
     public void mostrarInfoEfecto() {
         super.mostrarInfo(); // Llama al método mostrarInfo() de la clase Audio
@@ -71,10 +66,12 @@ public class EfectoDeSonido extends Audio {
     public void modificarInformacion() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Ingrese el nuevo tipo de efecto (actual: " + tipo + "): ");
+        // Solicita al usuario el nuevo tipo de efecto
+        System.out.print("Por favor, proporcione el nuevo tipo de efecto (actualmente: " + tipo + "): ");
         this.tipo = scanner.nextLine();
 
-        System.out.print("Ingrese la nueva descripción (actual: " + descripcion + "): ");
+        // Solicita al usuario la nueva descripción
+        System.out.print("Por favor, proporcione la nueva descripción (actualmente: " + descripcion + "): ");
         this.descripcion = scanner.nextLine();
     }
 }

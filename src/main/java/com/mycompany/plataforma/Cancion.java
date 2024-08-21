@@ -57,16 +57,6 @@ public class Cancion extends Audio {
         this.esExplicita = esExplicita;
     }
 
-    // Método para reproducir la canción
-    public void reproducir() {
-        System.out.println("Reproduciendo " + getTitulo());
-    }
-
-    // Método para agregar la canción a una playlist
-    public void agregarAPlaylist(String playlist) {
-        System.out.println(getTitulo() + " agregada a la playlist: " + playlist);
-    }
-
     // Método para mostrar información de la canción
     public void mostrarInfoCancion() {
         super.mostrarInfo(); // Llama al método mostrarInfo() de la clase Audio
@@ -76,13 +66,15 @@ public class Cancion extends Audio {
 
     // Método para modificar información de la canción
     public void modificarInformacion() {
-        Scanner scanner = new Scanner(System.in);
+       Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Ingrese nuevo número de track (actual: " + numeroTrack + "): ");
+        // Solicita al usuario el nuevo número de track
+        System.out.print("Por favor, proporcione el nuevo número de track (actual: " + numeroTrack + "): ");
         this.numeroTrack = scanner.nextInt();
         scanner.nextLine(); // Limpiar el buffer
 
-        System.out.print("¿Es explícita? (true/false, actual: " + (esExplicita ? "Sí" : "No") + "): ");
+        // Solicita al usuario si el contenido es explícito
+        System.out.print("Indique si el contenido es explícito (true/false, actual: " + (esExplicita ? "Sí" : "No") + "): ");
         this.esExplicita = scanner.nextBoolean();
         scanner.nextLine(); // Limpiar el buffer
     }

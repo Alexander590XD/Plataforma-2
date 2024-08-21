@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public abstract class AnalistaMarketing implements Serializable {
     
-      private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
     private String nombre;
     private String especialidad;
@@ -24,6 +24,9 @@ public abstract class AnalistaMarketing implements Serializable {
     private List<String> comentariosRecopilados;
     private List<String> campanasColaboradas;
 
+    /**
+     * Constructor de la clase AnalistaMarketing.
+     */
     public AnalistaMarketing(String nombre, String especialidad, int aniosExperiencia, Tiempo tiempoRegistro) {
         this.nombre = nombre;
         this.especialidad = especialidad;
@@ -68,46 +71,83 @@ public abstract class AnalistaMarketing implements Serializable {
     }
 
     // Métodos abstractos que deben ser implementados por las subclases.
+    
+    /**
+     * Muestra la información del analista.
+     */
     public abstract void mostrarInformacion();
+
+    /**
+     * Permite al analista realizar una encuesta.
+     */
     public abstract void realizarEncuesta(Scanner scanner);
+
+    /**
+     * Permite al analista colaborar en una campaña.
+     */
     public abstract void colaborarEnCampania(Scanner scanner);
+
+    /**
+     * Muestra los comentarios recopilados por el analista.
+     */
     public abstract void mostrarComentariosRecopilados();
+
+    /**
+     * Muestra las campañas en las que ha colaborado el analista.
+     */
     public abstract void mostrarCampañasColaboradas();
 
     // Métodos concretos para gestionar comentarios y campañas
+    
+    /**
+     * Agrega un comentario a la lista de comentarios recopilados.
+     */
     public void agregarComentario(String comentario) {
         if (comentario != null && !comentario.trim().isEmpty()) {
             comentariosRecopilados.add(comentario);
-            System.out.println("Comentario agregado.");
+            System.out.println("Comentario agregado con éxito.");
         } else {
-            System.out.println("Comentario no válido.");
+            System.out.println("El comentario proporcionado no es válido.");
         }
     }
 
+    /**
+     * Agrega una campaña a la lista de campañas colaboradas.
+     */
     public void agregarCampana(String campana) {
         if (campana != null && !campana.trim().isEmpty()) {
             campanasColaboradas.add(campana);
-            System.out.println("Campaña agregada.");
+            System.out.println("Campaña añadida con éxito.");
         } else {
-            System.out.println("Campaña no válida.");
+            System.out.println("La campaña proporcionada no es válida.");
         }
     }
 
+    /**
+     * Imprime en consola todos los comentarios recopilados.
+     */
     public void imprimirComentariosRecopilados() {
-        System.out.println("Comentarios recopilados:");
+        System.out.println("Comentarios Recopilados:");
         for (String comentario : comentariosRecopilados) {
             System.out.println("- " + comentario);
         }
     }
 
+    /**
+     * Imprime en consola todas las campañas colaboradas.
+     */
     public void imprimirCampanasColaboradas() {
-        System.out.println("Campañas colaboradas:");
+        System.out.println("Campañas Colaboradas:");
         for (String campana : campanasColaboradas) {
             System.out.println("- " + campana);
         }
     }
 
-    // Método estático para crear una instancia de AnalistaMarketing con valores por defecto
+    /**
+     * Método estático para crear una instancia de AnalistaMarketing con valores por defecto.
+     * 
+     * @return Una instancia de AnalistaMarketing con valores por defecto.
+     */
     public static AnalistaMarketing crearAnalistaPorDefecto() {
         Tiempo tiempo = new Tiempo();
         tiempo.capturarHora(); // Actualiza la hora de registro
@@ -117,25 +157,25 @@ public abstract class AnalistaMarketing implements Serializable {
             public void mostrarInformacion() {
                 System.out.println("Nombre: " + getNombre());
                 System.out.println("Especialidad: " + getEspecialidad());
-                System.out.println("Experiencia: " + getAniosExperiencia() + " años");
-                System.out.println("Tiempo de Registro: " + getTiempoRegistro().toString());
+                System.out.println("Años de Experiencia: " + getAniosExperiencia() + " años");
+                System.out.println("Hora de Registro: " + getTiempoRegistro().toString());
             }
 
             @Override
             public void realizarEncuesta(Scanner scanner) {
-                System.out.println("Realizando encuesta...");
-                System.out.println("Ingrese la respuesta a la encuesta:");
+                System.out.println("Procediendo con la encuesta...");
+                System.out.print("Por favor, ingrese su respuesta a la encuesta: ");
                 String respuesta = scanner.nextLine();
-                System.out.println("Respuesta recibida: " + respuesta);
+                System.out.println("Su respuesta ha sido registrada: " + respuesta);
             }
 
             @Override
             public void colaborarEnCampania(Scanner scanner) {
-                System.out.println("Colaborando en una campaña...");
-                System.out.println("Ingrese el nombre de la campaña:");
+                System.out.println("Colaborando en campaña...");
+                System.out.print("Por favor, ingrese el nombre de la campaña en la que colaboró: ");
                 String campania = scanner.nextLine();
                 agregarCampana(campania); // Usa el método concreto para agregar una campaña
-                System.out.println("Colaboración en la campaña '" + campania + "' registrada.");
+                System.out.println("Su participación en la campaña '" + campania + "' ha sido registrada.");
             }
 
             @Override
@@ -148,5 +188,13 @@ public abstract class AnalistaMarketing implements Serializable {
                 imprimirCampanasColaboradas(); // Usa el método concreto para imprimir campañas
             }
         };
+    }
+
+    /**
+     * Método final que muestra un mensaje de bienvenida para el analista.
+     */
+    public final void mostrarMensajeBienvenida() {
+        System.out.println("Bienvenido, " + nombre + ". Es un honor contar con un analista con "
+                           + aniosExperiencia + " años de experiencia en " + especialidad + ".");
     }
 }

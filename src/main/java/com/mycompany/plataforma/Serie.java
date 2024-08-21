@@ -115,35 +115,33 @@ public class Serie extends Video {
         System.out.println("Idioma original: " + iAudio);
     }
     
-    public void agregarTemporada() {
-        temporadas++;
-    }
-
-    public void agregarCapitulo() {
-        capitulos++;
-    }
-    
     public void modificarInformacion() {
         Scanner scanner = new Scanner(System.in);
-        
-        System.out.print("Ingrese nuevo número de temporadas (actual: " + temporadas + "): ");
+    
+        // Solicita al usuario el nuevo número de temporadas
+        System.out.print("Por favor, indique el nuevo número de temporadas (actual: " + temporadas + "): ");
         this.temporadas = scanner.nextInt();
         scanner.nextLine(); // Limpiar buffer
-        
-        System.out.print("Ingrese nuevo número de capítulos (actual: " + capitulos + "): ");
+
+        // Solicita al usuario el nuevo número de capítulos
+        System.out.print("Por favor, indique el nuevo número de capítulos (actual: " + capitulos + "): ");
         this.capitulos = scanner.nextInt();
         scanner.nextLine(); // Limpiar buffer
-        
-        System.out.print("Ingrese nueva duración del capítulo (actual: " + dCap + "): ");
+
+        // Solicita al usuario la nueva duración del capítulo
+        System.out.print("Por favor, indique la nueva duración del capítulo (actual: " + dCap + "): ");
         this.dCap = scanner.nextLine();
-        
-        System.out.print("Ingrese nuevo estado de emisión (actual: " + emision + "): ");
+
+        // Solicita al usuario el nuevo estado de emisión
+        System.out.print("Por favor, indique el nuevo estado de emisión (actual: " + emision + "): ");
         this.emision = scanner.nextLine();
-        
-        System.out.print("Ingrese nueva plataforma de origen (actual: " + pOrigen + "): ");
+
+        // Solicita al usuario la nueva plataforma de origen
+        System.out.print("Por favor, indique la nueva plataforma de origen (actual: " + pOrigen + "): ");
         this.pOrigen = scanner.nextLine();
-        
-        System.out.print("Ingrese nuevo idioma original (actual: " + iAudio + "): ");
+
+        // Solicita al usuario el nuevo idioma original
+        System.out.print("Por favor, indique el nuevo idioma original (actual: " + iAudio + "): ");
         this.iAudio = scanner.nextLine();
     }
 }

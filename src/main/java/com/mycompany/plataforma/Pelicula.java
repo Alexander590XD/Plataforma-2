@@ -84,18 +84,22 @@ public class Pelicula extends Video{
         System.out.println("Clasificación de Edad: " + clasificacio);
     }
      public void modificarInformacion() {
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.print("Ingrese nuevo género (actual: " + genero + "): ");
+       Scanner scanner = new Scanner(System.in);
+    
+        // Solicita al usuario el nuevo género
+        System.out.print("Por favor, indique el nuevo género (actual: " + genero + "): ");
         this.genero = scanner.nextLine();
-        
-        System.out.print("Ingrese nueva sinopsis (actual: " + sinopsis + "): ");
+
+        // Solicita al usuario la nueva sinopsis
+        System.out.print("Por favor, indique la nueva sinopsis (actual: " + sinopsis + "): ");
         this.sinopsis = scanner.nextLine();
-        
-        System.out.print("Ingrese nuevo estudio (actual: " + estudio + "): ");
+
+        // Solicita al usuario el nuevo estudio
+        System.out.print("Por favor, indique el nuevo estudio (actual: " + estudio + "): ");
         this.estudio = scanner.nextLine();
-        
-        System.out.print("Ingrese nueva clasificación de edad (actual: " + clasificacio + "): ");
+
+        // Solicita al usuario la nueva clasificación de edad
+        System.out.print("Por favor, indique la nueva clasificación de edad (actual: " + clasificacio + "): ");
         this.clasificacio = scanner.nextLine();
     }
 }
